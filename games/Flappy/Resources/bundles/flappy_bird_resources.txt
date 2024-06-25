@@ -1,0 +1,39 @@
+// Resources found at: https://github.com/samuelcust/flappy-bird-assets
+
+// Home Screen
+BITMAP,message,message.png
+
+// Player
+BITMAP,bird-downflap,yellowbird-downflap.png
+BITMAP,bird-midflap,yellowbird-midflap.png
+BITMAP,bird-upflap,yellowbird-upflap.png
+
+// Background
+BITMAP,background,background-day.png
+BITMAP,base,base.png
+
+// Pipes
+BITMAP,pipe-green,pipe-green.png
+BITMAP,pipe-green-top,pipe-green-top.png
+
+// Score
+BITMAP,0,0.png
+BITMAP,1,1.png
+BITMAP,2,2.png
+BITMAP,3,3.png
+BITMAP,4,4.png
+BITMAP,5,5.png
+BITMAP,6,6.png
+BITMAP,7,7.png
+BITMAP,8,8.png
+BITMAP,9,9.png
+
+// Game Over
+BITMAP,gameover,gameover.png
+
+// Game Sounds
+SOUND,die,die.ogg
+SOUND,hit,hit.ogg
+SOUND,point,point.ogg
+SOUND,swoosh,swoosh.ogg
+SOUND,wing,wing.ogg
