@@ -145,14 +145,11 @@ namespace PlanetProtector
 
             foreach (Asteroid asteroid in asteroids)
             {
-                if (!asteroid.Visited)
+                asteroid_distance = DistanceToAsteroid(asteroid);
+                if (result == null || asteroid_distance < closest_distance)
                 {
-                    asteroid_distance = DistanceToAsteroid(asteroid);
-                    if (result == null || asteroid_distance < closest_distance)
-                    {
-                        closest_distance = asteroid_distance;
-                        result = asteroid;
-                    }
+                    closest_distance = asteroid_distance;
+                    result = asteroid;
                 }
             }
 

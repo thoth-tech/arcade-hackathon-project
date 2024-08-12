@@ -22,14 +22,10 @@ namespace PlanetProtector
 
         // Fields
         private Sprite _asteroidSprite;
-        private bool _visited;
 
         // Constructor
         public Asteroid(int x, int y)
         {
-            //Set visited property to false, by default
-            _visited = false;
-
             //Randomly set a new asteroids sprite
             _asteroidSprite = new Sprite(_AsteroidBitmap((AsteroidKind)SplashKit.Rnd(9)));
 
@@ -48,30 +44,16 @@ namespace PlanetProtector
             get { return _asteroidSprite; }
         }
 
-        // Property for whether the asteroid has been visited or not
-        public bool Visited
-        {
-            get { return _visited; }
-            set { _visited = value; }
-        }
-
         /**
         * -----------------------
         * Public Methods
         * -----------------------
         */
 
-        // Draw the asteroid sprite and a circle around if visited
+        // Draw the asteroid sprite
         public void Draw()
         {
             _asteroidSprite.Draw();
-
-            if (_visited)
-            {
-                Circle c = _asteroidSprite.Circle();
-                c.Radius += 10;
-                SplashKit.DrawCircle(Color.BrightGreen, c);
-            }
         }
 
         // Update the asteroid sprite

@@ -102,9 +102,8 @@ namespace PlanetProtector
             {
                 foreach (Asteroid asteroid in _asteroids)
                 {
-                    if (!asteroid.Visited && SplashKit.SpriteCollision(_player.Sprite, asteroid.Sprite))
+                    if (SplashKit.SpriteCollision(_player.Sprite, asteroid.Sprite))
                     {
-                        asteroid.Visited = true;
                         _score += 1000;
                         _gameTimer.Reset();
                         // return;
