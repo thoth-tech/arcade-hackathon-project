@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "l5zGGm8how4=",
+  "dgSpecHash": "0TFYYW7L/G0=",
   "success": true,
-  "projectFilePath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
+  "projectFilePath": "C:\\Users\\s224423229\\OneDrive - Deakin University\\Desktop\\Deakin\\Year 1\\Trimester 2\\Hackathon\\arcade-hackathon-project\\games\\csharp_games\\PlanetProtector\\PlanetProtector.csproj",
   "expectedPackageFiles": [
-    "/Users/cjhorn/.nuget/packages/splashkit/1.1.6/splashkit.1.1.6.nupkg.sha512"
+    "C:\\Users\\s224423229\\.nuget\\packages\\splashkit\\1.1.6\\splashkit.1.1.6.nupkg.sha512"
   ],
   "logs": []
 }

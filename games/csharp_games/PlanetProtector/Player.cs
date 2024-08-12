@@ -14,9 +14,7 @@ namespace PlanetProtector
     public class Player
     {
         // Constants
-        const float PLAYER_SPEED = 1.5f;
-        const int PLAYER_ROTATE_SPEED = 3;
-        const int SCREEN_BORDER = 100;
+        const float PLAYER_SPEED = 9.5f;
 
         // Fields
         private Sprite _playerSprite;
@@ -37,6 +35,7 @@ namespace PlanetProtector
             // Default to layer 0 = Aquarii so hide others
             _playerSprite.HideLayer(1);
             _playerSprite.HideLayer(2);
+            _playerSprite.Rotation = 270;
         }
 
         // Read-only property to return the player sprite
@@ -65,21 +64,16 @@ namespace PlanetProtector
             if (SplashKit.KeyTyped(KeyCode.Num3Key))
                 _SwitchShip(ShipKind.PEGASI);
 
-            // Handle movement - rotating left/right and moving forward/back
-            float dx = _playerSprite.Dx;
-            float rotation = _playerSprite.Rotation;
+            // Handle movement - moving left/right 
+            float dx = _playerSprite.X;
 
-            // Allow rotation with left/right keys
-            if (SplashKit.KeyDown(KeyCode.LeftKey))
-                _playerSprite.Rotation = rotation - PLAYER_ROTATE_SPEED;
-            if (SplashKit.KeyDown(KeyCode.RightKey))
-                _playerSprite.Rotation = rotation + PLAYER_ROTATE_SPEED;
+            // Allow for movement on the x axis with border restrictions
+            if (SplashKit.KeyDown(KeyCode.LeftKey) && _playerSprite.X > -10)
+                _playerSprite.X = dx - PLAYER_SPEED;
+            if (SplashKit.KeyDown(KeyCode.RightKey) && _playerSprite.X < 740)
+                _playerSprite.X = dx + PLAYER_SPEED;
 
-            // Increase speed with up/down keys - typed to give step increases
-            if (SplashKit.KeyTyped(KeyCode.DownKey))
-                _playerSprite.Dx = dx - PLAYER_SPEED;
-            if (SplashKit.KeyTyped(KeyCode.UpKey))
-                _playerSprite.Dx = dx + PLAYER_SPEED;
+            
         }
 
         // Draw the player sprite

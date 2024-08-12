@@ -59,7 +59,7 @@ namespace PlanetProtector
                 // Position in the centre of the initial screen
                 // _player.Sprite.X = (width - _player.Sprite.Width) / 2; // Translate to world coords
                 _player.Sprite.X = (_gameWindow.Width - _player.Sprite.Width) / 2;
-                _player.Sprite.Y = (_gameWindow.Height - _player.Sprite.Height) / 2;
+                _player.Sprite.Y = (_gameWindow.Height  - _player.Sprite.Height) - 100;
             }
         }
 
