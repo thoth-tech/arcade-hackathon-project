@@ -12,7 +12,7 @@ using namespace std;
 
 #define PLAYER_SPEED 1.5
 #define PLAYER_ROTATE_SPEED 3
-#define SCREEN_BORDER 100
+#define SCREEN_BORDER 275
 
 /**
  * Different options for the kind of ship.
