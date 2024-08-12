@@ -1,6 +1,6 @@
 ﻿using SplashKitSDK;
 
-namespace LostInSpace
+namespace PlanetProtector
 {
     public class Program
     {

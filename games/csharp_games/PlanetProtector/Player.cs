@@ -1,7 +1,7 @@
 ﻿using SplashKitSDK;
 using System.Collections.Generic;
 
-namespace LostInSpace
+namespace PlanetProtector
 {
     // Ship kind enum
     public enum ShipKind
@@ -128,30 +128,30 @@ namespace LostInSpace
             }
         }
 
-        // Calculate the distance to planet
-        public float DistanceToPlanet(Planet planet)
+        // Calculate the distance to asteroid
+        public float DistanceToAsteroid(Asteroid asteroid)
         {
             // Returns distance between two points
-            return SplashKit.PointPointDistance(_playerSprite.CenterPoint, planet.Sprite.CenterPoint);
+            return SplashKit.PointPointDistance(_playerSprite.CenterPoint, asteroid.Sprite.CenterPoint);
         }
 
-        // Return the closest planet
-        public Planet ClosestPlanet(List<Planet> planets)
+        // Return the closest asteroid
+        public Asteroid ClosestAsteroid(List<Asteroid> asteroids)
         {
-            Planet result = null;
+            Asteroid result = null;
 
             double closest_distance = 0;
-            double planet_distance;
+            double asteroid_distance;
 
-            foreach (Planet planet in planets)
+            foreach (Asteroid asteroid in asteroids)
             {
-                if (!planet.Visited)
+                if (!asteroid.Visited)
                 {
-                    planet_distance = DistanceToPlanet(planet);
-                    if (result == null || planet_distance < closest_distance)
+                    asteroid_distance = DistanceToAsteroid(asteroid);
+                    if (result == null || asteroid_distance < closest_distance)
                     {
-                        closest_distance = planet_distance;
-                        result = planet;
+                        closest_distance = asteroid_distance;
+                        result = asteroid;
                     }
                 }
             }
