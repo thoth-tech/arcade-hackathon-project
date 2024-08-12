@@ -7,7 +7,6 @@ namespace PlanetProtector
     {
         MERCURY,
         VENUS,
-        EARTH,
         MARS,
         JUPITER,
         NEPTUNE,
@@ -17,8 +16,9 @@ namespace PlanetProtector
     public class Asteroid
     {
         // Constants
-        const float ASTEROID_SPEED = 0.1f;
-        const float ASTEROID_ROTATE = 0.05f;
+        const float ASTEROID_SPEED = 0.5f;
+        
+        int ASTEROID_KIND_COUNT = 6; // number of entries in the AsteroidKind enum
 
         // Fields
         private Sprite _asteroidSprite;
@@ -27,15 +27,14 @@ namespace PlanetProtector
         public Asteroid(int x, int y)
         {
             //Randomly set a new asteroids sprite
-            _asteroidSprite = new Sprite(_AsteroidBitmap((AsteroidKind)SplashKit.Rnd(9)));
+            _asteroidSprite = new Sprite(_AsteroidBitmap((AsteroidKind)SplashKit.Rnd(ASTEROID_KIND_COUNT)));
 
             //Set asteroid x and y
             _asteroidSprite.X = (x - _asteroidSprite.Width) / 2;
             _asteroidSprite.Y = (y - _asteroidSprite.Height) / 2;
 
             //Set asteroid velocity and rotation
-            _asteroidSprite.Dx = ASTEROID_SPEED;
-            _asteroidSprite.Rotation = ASTEROID_ROTATE;
+            _asteroidSprite.Dy = ASTEROID_SPEED;
         }
 
         // Read-only property to return the asteroid sprite
@@ -77,8 +76,6 @@ namespace PlanetProtector
                     return SplashKit.BitmapNamed("mercury");
                 case AsteroidKind.VENUS:
                     return SplashKit.BitmapNamed("venus");
-                case AsteroidKind.EARTH:
-                    return SplashKit.BitmapNamed("earth");
                 case AsteroidKind.MARS:
                     return SplashKit.BitmapNamed("mars");
                 case AsteroidKind.JUPITER:

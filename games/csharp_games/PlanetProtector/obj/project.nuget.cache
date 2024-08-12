@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8ku5T7FAmtE=",
+  "dgSpecHash": "l5zGGm8how4=",
   "success": true,
-  "projectFilePath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/LostInSpace.csproj",
+  "projectFilePath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
   "expectedPackageFiles": [
     "/Users/cjhorn/.nuget/packages/splashkit/1.1.6/splashkit.1.1.6.nupkg.sha512"
   ],

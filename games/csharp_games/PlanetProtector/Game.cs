@@ -11,11 +11,11 @@ namespace PlanetProtector
         // Fields
         private Window _gameWindow;
         private Player _player;
-        private Asteroid _asteroid;
         private List<Asteroid> _asteroids;
         private Timer _gameTimer;
         private bool _gameOver;
         private int _score;
+        private Timer _asteroidTimer;
 
         // Constructor
         public Game(Window gameWindow)
@@ -23,16 +23,19 @@ namespace PlanetProtector
             // Initialise fields
             _gameWindow = gameWindow;
             _player = new Player(_gameWindow);
-            _asteroid = new Asteroid(0, 0);
             _asteroids = new List<Asteroid>();
             _gameTimer = new Timer("GameTimer");
+            _asteroidTimer = new Timer("AsteroidTimer");
             _gameOver = false;
             _score = 0;
 
-            _SetupLevel(3000, 3000, 10);
+            _SetupLevel(3000, 3000);
 
             _gameTimer.Reset();
             _gameTimer.Start();
+
+            _asteroidTimer.Reset();
+            _asteroidTimer.Start();
         }
 
         /**
@@ -42,31 +45,21 @@ namespace PlanetProtector
         */
 
         // Set up the level data
-        private void _SetupLevel(int width, int height, int numAsteroids)
+        private void _SetupLevel(int width, int height)
         {
             if (!_gameOver)
             {
+                // remove any existing asteroids if needed
                 foreach (Asteroid asteroid in _asteroids)
                 {
                     SplashKit.FreeSprite(asteroid.Sprite);
                 }
                 _asteroids.Clear();
 
-                if (numAsteroids <= 0)
-                {
-                    numAsteroids = 1;
-                }
-
                 // Position in the centre of the initial screen
                 // _player.Sprite.X = (width - _player.Sprite.Width) / 2; // Translate to world coords
                 _player.Sprite.X = (_gameWindow.Width - _player.Sprite.Width) / 2;
                 _player.Sprite.Y = (_gameWindow.Height - _player.Sprite.Height) / 2;
-
-                // Add asteroids
-                for (int i = 0; i < numAsteroids; i++)
-                {
-                    _asteroids.Add(new Asteroid(SplashKit.Rnd(width), SplashKit.Rnd(height)));
-                }
             }
         }
 
@@ -88,7 +81,16 @@ namespace PlanetProtector
             _gameWindow.DrawBitmap(SplashKit.BitmapNamed("empty"), 300, 0, SplashKit.OptionToScreen());
             _gameWindow.DrawBitmap(SplashKit.BitmapNamed("full"), 300, 0, SplashKit.OptionPartBmp(0, 0, part_width * timePercent, SplashKit.BitmapHeight("full"), SplashKit.OptionToScreen()));
 
-            Vector2D direction = SplashKit.VectorMultiply(SplashKit.UnitVector(SplashKit.VectorFromTo(_player.Sprite, closestAsteroid.Sprite)), 15);
+            // Draw compass
+            Vector2D direction;
+            if (closestAsteroid != null)
+            {
+                direction = SplashKit.VectorMultiply(SplashKit.UnitVector(SplashKit.VectorFromTo(_player.Sprite, closestAsteroid.Sprite)), 15);
+            }
+            else
+            {
+                direction = new Vector2D(); // if there are no asteroids, don't draw anything
+            }
 
             // draws compas to closest asteroid
             _gameWindow.DrawCircle(Color.White, 750, 20, 15, SplashKit.OptionToScreen());
@@ -109,6 +111,18 @@ namespace PlanetProtector
                         // return;
                     }
                 }
+            }
+        }
+
+        // Spawn asteroids
+        private void _SpawnAsteroids()
+        {
+            if (_asteroidTimer.Ticks > 1000)
+            {
+                _asteroidTimer.Reset();
+                int newAsteroidX = SplashKit.Rnd(_gameWindow.Width);
+                newAsteroidX = 0;
+                _asteroids.Add(new Asteroid(newAsteroidX, -100));
             }
         }
 
@@ -147,17 +161,13 @@ namespace PlanetProtector
                 timePercent = 0; // Ensures doesn't go into the negatives
             }
 
-            Asteroid closestAsteroid = _player.ClosestAsteroid(_asteroids);
-            // Are there any asteroids left?
-            if (closestAsteroid != null)
+            Asteroid closestAsteroid = null;
+            if(_asteroids.Count > 0) // if there are asteroids, get the closest one
             {
-                // Draw hud
-                _DrawHud(closestAsteroid, timePercent);
+                closestAsteroid = _player.ClosestAsteroid(_asteroids);
             }
-            else
-            {
-                _DrawHud(_asteroids[0], timePercent);
-            }
+
+            _DrawHud(closestAsteroid, timePercent);
 
             if (_gameOver)
             {
@@ -178,18 +188,14 @@ namespace PlanetProtector
                 asteroid.Update();
             }
 
+            _SpawnAsteroids();
+
             _CheckCollisions();
 
             if (_gameTimer.Ticks > LEVEL_TIME)
             {
                 _gameOver = true;
                 _gameTimer.Stop();
-            }
-
-            // New level upon no more asteroids
-            if (_player.ClosestAsteroid(_asteroids) == null)
-            {
-                _SetupLevel(3000, 3000, _asteroids.Count - 1);
             }
         }
     }

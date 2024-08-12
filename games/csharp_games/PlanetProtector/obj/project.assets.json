@@ -41,9 +41,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/LostInSpace.csproj",
-      "projectName": "LostInSpace",
-      "projectPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/LostInSpace.csproj",
+      "projectUniqueName": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
+      "projectName": "PlanetProtector",
+      "projectPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
       "packagesPath": "/Users/cjhorn/.nuget/packages/",
       "outputPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/obj/",
       "projectStyle": "PackageReference",

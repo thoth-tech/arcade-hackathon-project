@@ -93,44 +93,14 @@ namespace PlanetProtector
         {
             // Apply movement based on rotation and velocity in the sprite
             _playerSprite.Update();
-
-            // Test edge of screen boundaries to adjust the camera
-            double left_edge = SplashKit.CameraX() + SCREEN_BORDER;
-            double right_edge = left_edge + gameWindow.Width - 2 * SCREEN_BORDER;
-            double top_edge = SplashKit.CameraY() + SCREEN_BORDER;
-            double bottom_edge = top_edge + gameWindow.Height - 2 * SCREEN_BORDER;
-
-            // Get the center of the player
-            Point2D sprite_center = _playerSprite.CenterPoint;
-
-            // Test if the player is outside the area and move the camera
-            // the player will appear to stay still and everything else
-            // will appear to move :)
-
-            // Test top/bottom of screen
-            if (sprite_center.Y < top_edge)
-            {
-                SplashKit.MoveCameraBy(0, sprite_center.Y - top_edge);
-            }
-            else if (sprite_center.Y > bottom_edge)
-            {
-                SplashKit.MoveCameraBy(0, sprite_center.Y - bottom_edge);
-            }
-
-            // Test left/right of screen
-            if (sprite_center.X < left_edge)
-            {
-                SplashKit.MoveCameraBy(sprite_center.X - left_edge, 0);
-            }
-            else if (sprite_center.X > right_edge)
-            {
-                SplashKit.MoveCameraBy(sprite_center.X - right_edge, 0);
-            }
         }
 
         // Calculate the distance to asteroid
         public float DistanceToAsteroid(Asteroid asteroid)
         {
+            if (asteroid == null) // at start of game there are no asteroids
+                return 0;
+
             // Returns distance between two points
             return SplashKit.PointPointDistance(_playerSprite.CenterPoint, asteroid.Sprite.CenterPoint);
         }
