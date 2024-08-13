@@ -194,9 +194,9 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
     draw_text("BASE SPEED: " + to_string(player.base_speed),
               COLOR_WHITE, 0, 30, option_to_screen());
     
-    if (sprite_dx(player.player_sprite) - player.base_speed >= 1.5)
+    if (sprite_dx(player.player_sprite) - player.base_speed > 1.4)
         draw_text("SPEED + " + format_float(sprite_dx(player.player_sprite) - player.base_speed),
-                COLOR_ORANGE, 0, 40, option_to_screen());
+                COLOR_RED, 0, 40, option_to_screen());
 
     // Draw bar
     draw_bitmap("empty", 300, 0, option_to_screen());
