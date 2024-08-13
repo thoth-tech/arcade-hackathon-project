@@ -199,8 +199,21 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
                 COLOR_RED, 0, 40, option_to_screen());
 
     // Draw bar
+    load_bitmap("orange_bar","orange_bar.png ");
     draw_bitmap("empty", 300, 0, option_to_screen());
-    draw_bitmap("full", 300, 0, option_part_bmp(0, 0, part_width * time_percent, bitmap_height("full"), option_to_screen()));
+    if(time_percent <=0.3)
+    {
+        draw_bitmap("orange_bar", 300, 0, option_part_bmp(0, 0, part_width * time_percent , bitmap_height("orange_bar"), option_to_screen()));
+
+    }
+
+    else
+    {
+        draw_bitmap("full", 300, 0, option_part_bmp(0, 0, part_width * time_percent, bitmap_height("full"), option_to_screen()));
+
+    }
+    
+    
 
     vector_2d direction;
 
