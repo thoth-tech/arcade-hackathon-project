@@ -37,6 +37,7 @@ typedef struct player_struct
     sprite player_sprite;
     int score;
     ship_kind kind;
+    double base_speed;
 } player_data;
 
 /**
@@ -58,7 +59,7 @@ void draw_player(const player_data &player_to_draw);
  *
  * @param player_to_update      The player being updated
  */
-void update_player(player_data &player_to_update);
+void update_player(player_data &player_to_update, double elapsed_time);
 
 /**
  * Read user input and update the player based on this interaction.

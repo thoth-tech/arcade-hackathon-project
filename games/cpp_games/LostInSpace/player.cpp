@@ -43,6 +43,7 @@ player_data new_player()
     sprite_hide_layer(result.player_sprite, 2);
 
     result.kind = AQUARII;
+    result.base_speed = PLAYER_SPEED; // Initialise base speed
 
     // Position in the centre of the initial screen
     // sprite_set_x(result.player_sprite, 400 - sprite_width(result.player_sprite)/2); //Subtracts half the player's width to x, centring
@@ -56,10 +57,13 @@ void draw_player(const player_data &player_to_draw)
     draw_sprite(player_to_draw.player_sprite);
 }
 
-void update_player(player_data &player_to_update)
+void update_player(player_data &player_to_update, double elapsed_time)
 {
     // Apply movement based on rotation and velocity in the sprite
     update_sprite(player_to_update.player_sprite);
+
+    // Adjust base speed based on elapsed time
+   // player_to_update.base_speed = 1.0 + (elapsed_time / 60.0);
 
     // Test edge of screen boundaries to adjust the camera
     double left_edge = camera_x() + SCREEN_BORDER;
@@ -93,6 +97,13 @@ void update_player(player_data &player_to_update)
     {
         move_camera_by(sprite_center.x - right_edge, 0);
     }
+    
+    // Increase base speed over time
+    float dx = sprite_dx(player_to_update.player_sprite);
+    float speed_increase = elapsed_time * 0.0001;
+    player_to_update.base_speed += speed_increase;
+    sprite_set_dx(player_to_update.player_sprite, dx += speed_increase);
+
 }
 
 /**
@@ -132,11 +143,25 @@ void handle_input(player_data &player)
     if (key_down(RIGHT_KEY))
         sprite_set_rotation(player.player_sprite, rotation + PLAYER_ROTATE_SPEED);
 
+    // Change acceleration with up/down keys
     // Increase speed with up/down keys - typed to give step increases
+    if (key_typed(UP_KEY))
+        sprite_set_dx(player.player_sprite, dx + PLAYER_SPEED);
+    // Decrease speed with up/down keys - typed to give step decreaseds until reaching default speed 
+    if (key_typed(DOWN_KEY))
+    {
+        // Increase speed with up/down keys - typed to give step increases
+        if (dx - PLAYER_SPEED >= player.base_speed)
+        sprite_set_dx(player.player_sprite, dx - PLAYER_SPEED);
+        else
+        sprite_set_dx(player.player_sprite, player.base_speed);
+    }
+/*
     if (key_typed(DOWN_KEY))
         sprite_set_dx(player.player_sprite, dx - PLAYER_SPEED);
     if (key_typed(UP_KEY))
         sprite_set_dx(player.player_sprite, dx + PLAYER_SPEED);
+*/
 }
 
 void draw_hud(const player_data &player, const planet_data &planet, double time_percent)
@@ -156,6 +181,12 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
 
     draw_text("DISTANCE: " + to_string(distance_to_planet(player, planet)),
               COLOR_WHITE, 0, 20, option_to_screen());
+    
+    draw_text("BASE SPEED: " + to_string(player.base_speed),
+              COLOR_WHITE, 0, 30, option_to_screen());
+    
+    draw_text("SPEED: " + to_string(sprite_dx(player.player_sprite)),
+              COLOR_WHITE, 0, 40, option_to_screen());
 
     // Draw bar
     draw_bitmap("empty", 300, 0, option_to_screen());

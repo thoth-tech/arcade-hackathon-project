@@ -115,10 +115,11 @@ void check_collisions(game_data &game) // this also updates the score when a pla
 
 void update_game(game_data &game)
 {
-    update_player(game.player);
+    double elapsed_time = timer_ticks(game.game_timer) / 1000;
+    update_player(game.player, elapsed_time);
 
     // Perform movement and update the camera
-    update_player(game.player);
+    update_player(game.player, elapsed_time);
     for (int i = 0; i < game.planets.size(); i++)
     {
         update_planet(game.planets[i]);
