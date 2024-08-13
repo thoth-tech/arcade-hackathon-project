@@ -2,6 +2,8 @@
 #include "player.h"
 #include <cmath>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 /**
  * The ship bitmap function converts a ship kind into a
@@ -172,9 +174,16 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
 
     float distance = distance_to_planet(player, planet);
 
+    // Helper function to format floating-point numbers to 1 decimal place and return as string
+    auto format_float = [](float value) -> std::string {
+        std::ostringstream out;
+        out << std::fixed << std::setprecision(1) << value;
+        return out.str();
+    };
+
     // Draw score, location and distance to top left of the screen
     draw_text("SCORE: " + to_string(player.score),
-              COLOR_WHITE, 0, 0, option_to_screen());
+              COLOR_GOLD, 0, 0, option_to_screen());
 
     draw_text("LOCATION: " + point_to_string(center_point(player.player_sprite)),
               COLOR_WHITE, 0, 10, option_to_screen());
@@ -185,8 +194,9 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
     draw_text("BASE SPEED: " + to_string(player.base_speed),
               COLOR_WHITE, 0, 30, option_to_screen());
     
-    draw_text("SPEED: " + to_string(sprite_dx(player.player_sprite)),
-              COLOR_WHITE, 0, 40, option_to_screen());
+    if (sprite_dx(player.player_sprite) - player.base_speed >= 1.5)
+        draw_text("SPEED + " + format_float(sprite_dx(player.player_sprite) - player.base_speed),
+                COLOR_ORANGE, 0, 40, option_to_screen());
 
     // Draw bar
     draw_bitmap("empty", 300, 0, option_to_screen());
