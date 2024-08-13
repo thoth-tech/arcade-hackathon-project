@@ -1,5 +1,6 @@
 ﻿using SplashKitSDK;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlanetProtector
 {
@@ -19,6 +20,7 @@ namespace PlanetProtector
         // Fields
         private Sprite _playerSprite;
         private ShipKind _kind;
+        private List<Bullet> _bullets;
 
         // Constructor
         public Player(Window gameWindow)
@@ -36,6 +38,7 @@ namespace PlanetProtector
             _playerSprite.HideLayer(1);
             _playerSprite.HideLayer(2);
             _playerSprite.Rotation = 270;
+            _bullets = new List<Bullet>();
         }
 
         // Read-only property to return the player sprite
@@ -72,14 +75,22 @@ namespace PlanetProtector
                 _playerSprite.X = dx - PLAYER_SPEED;
             if (SplashKit.KeyDown(KeyCode.RightKey) && _playerSprite.X < 740)
                 _playerSprite.X = dx + PLAYER_SPEED;
+            if (SplashKit.KeyTyped(KeyCode.SpaceKey))
+            {
+                Shoot();
+            }
 
-            
+
         }
 
         // Draw the player sprite
         public void Draw()
         {
             _playerSprite.Draw();
+            foreach (Bullet bullet in _bullets)
+            {
+                bullet.Draw();
+            }
         }
 
         // Update the player sprite and camera movement
@@ -87,6 +98,12 @@ namespace PlanetProtector
         {
             // Apply movement based on rotation and velocity in the sprite
             _playerSprite.Update();
+            // Update bullets and remove any that are off-screen
+            _bullets = _bullets.Where(bullet => !bullet.IsOffScreen(gameWindow)).ToList();
+            foreach (Bullet bullet in _bullets)
+            {
+                bullet.Update();
+            }
         }
 
         // Calculate the distance to asteroid
@@ -154,6 +171,13 @@ namespace PlanetProtector
                 // remember what is currently shown
                 _kind = target;
             }
+        }
+
+        private void Shoot()
+        {
+            // Create a new bullet and add it to the list
+            Bullet bullet = new Bullet(_playerSprite.X + _playerSprite.Width / 2, _playerSprite.Y);
+            _bullets.Add(bullet);
         }
     }
 }

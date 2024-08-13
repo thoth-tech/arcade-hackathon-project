@@ -8,6 +8,8 @@ namespace PlanetProtector
         {
             // Load the game images, sounds, etc.
             SplashKit.LoadResourceBundle("game_bundle", "lost_in_space.txt");
+            SplashKit.LoadBitmap("bullet", "bullet.png");
+
 
             Window window = new Window("Lost In Space", 800, 700);
 
