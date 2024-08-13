@@ -216,12 +216,39 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
     
 
     vector_2d direction;
+    float rotation_angle;
 
-    direction = vector_multiply(unit_vector(vector_from_to(player.player_sprite, planet.planet_sprite)), 15);
+    direction = vector_multiply(unit_vector(vector_from_to(player.player_sprite, planet.planet_sprite)), 30);
+    rotation_angle = sprite_rotation(player.player_sprite);
+
+    // Load bitmaps
+    load_bitmap("compass", "Compass.png");
+    load_bitmap("view", "Compass2.png");
 
     // draws compas to closest planet
-    draw_circle(COLOR_WHITE, 750, 20, 15, option_to_screen());
-    draw_line(COLOR_WHITE, 750, 20, 750 + direction.x, 20 + direction.y, option_to_screen());
+    //draw_circle(COLOR_WHITE, 750, 20, 15, option_to_screen());
+    draw_bitmap("compass", 720-23.5, 40-25.5, option_to_screen());
+    // Direction of the spaceship
+    draw_bitmap("view", 720-23.5, 40-25.5, option_rotate_bmp(rotation_angle, option_to_screen()));
+    //draw_line(COLOR_WHITE, 720, 40, 720 + direction.x, 40 + direction.y, option_to_screen());
+
+    // Draw triangle to represent direction
+    // Calculate the points for the triangle
+    point_2d tip = {720 + direction.x, 40 + direction.y};
+    vector_2d perpendicular = {-direction.y, direction.x}; // Perpendicular vector to the direction
+    perpendicular = unit_vector(perpendicular); // Normalize the perpendicular vector
+
+    // Adjust the size of the triangle as needed
+    double triangle_base = 7.0;
+    double triangle_height = 7.0;
+
+    point_2d left = {tip.x + perpendicular.x * (triangle_base / 2) - direction.x * (triangle_height / 15), 
+                    tip.y + perpendicular.y * (triangle_base / 2) - direction.y * (triangle_height / 15)};
+    point_2d right = {tip.x - perpendicular.x * (triangle_base / 2) - direction.x * (triangle_height / 15), 
+                    tip.y - perpendicular.y * (triangle_base / 2) - direction.y * (triangle_height / 15)};
+
+    // Draw triangle
+    fill_triangle(COLOR_YELLOW, tip.x, tip.y, left.x, left.y, right.x, right.y, option_to_screen());
 }
 
 double distance_to_planet(const player_data &player, const planet_data &planet)
