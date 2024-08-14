@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\s224423229\\OneDrive - Deakin University\\Desktop\\Deakin\\Year 1\\Trimester 2\\Hackathon\\arcade-hackathon-project\\games\\csharp_games\\PlanetProtector\\PlanetProtector.csproj": {}
+    "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj": {}
   },
   "projects": {
-    "C:\\Users\\s224423229\\OneDrive - Deakin University\\Desktop\\Deakin\\Year 1\\Trimester 2\\Hackathon\\arcade-hackathon-project\\games\\csharp_games\\PlanetProtector\\PlanetProtector.csproj": {
+    "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\s224423229\\OneDrive - Deakin University\\Desktop\\Deakin\\Year 1\\Trimester 2\\Hackathon\\arcade-hackathon-project\\games\\csharp_games\\PlanetProtector\\PlanetProtector.csproj",
+        "projectUniqueName": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
         "projectName": "PlanetProtector",
-        "projectPath": "C:\\Users\\s224423229\\OneDrive - Deakin University\\Desktop\\Deakin\\Year 1\\Trimester 2\\Hackathon\\arcade-hackathon-project\\games\\csharp_games\\PlanetProtector\\PlanetProtector.csproj",
-        "packagesPath": "C:\\Users\\s224423229\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\s224423229\\OneDrive - Deakin University\\Desktop\\Deakin\\Year 1\\Trimester 2\\Hackathon\\arcade-hackathon-project\\games\\csharp_games\\PlanetProtector\\obj\\",
+        "projectPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
+        "packagesPath": "/Users/cjhorn/.nuget/packages/",
+        "outputPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\s224423229\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/cjhorn/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -71,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
