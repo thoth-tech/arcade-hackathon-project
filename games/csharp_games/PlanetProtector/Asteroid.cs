@@ -20,14 +20,20 @@ namespace PlanetProtector
         
         int ASTEROID_KIND_COUNT = 6; // number of entries in the AsteroidKind enum
 
+        // need to somehow pass this into the drawing of the sprite
+        // can use public void Bitmap.DrawBitmap(double x, double y, DrawingOptions opts);
+        // but that is drawing the bitmap, not drawing the sprite
+        DrawingOptions asteroidOptions = SplashKit.OptionRotateBmp(10);
+
         // Fields
         private Sprite _asteroidSprite;
 
         // Constructor
         public Asteroid(int x, int y)
         {
-            //Randomly set a new asteroids sprite
-            _asteroidSprite = new Sprite(_AsteroidBitmap((AsteroidKind)SplashKit.Rnd(ASTEROID_KIND_COUNT)));
+            // Randomly set a new asteroids sprite
+            // _asteroidSprite = new Sprite(_AsteroidBitmap((AsteroidKind)SplashKit.Rnd(ASTEROID_KIND_COUNT)));
+            _asteroidSprite = new Sprite(SplashKit.BitmapNamed("asteroid"));
 
             //Set asteroid x and y
             _asteroidSprite.X = (x - _asteroidSprite.Width) / 2;

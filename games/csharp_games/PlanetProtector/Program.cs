@@ -9,9 +9,9 @@ namespace PlanetProtector
             // Load the game images, sounds, etc.
             SplashKit.LoadResourceBundle("game_bundle", "lost_in_space.txt");
             SplashKit.LoadBitmap("bullet", "bullet.png");
+            SplashKit.LoadBitmap("asteroid", "asteroid_100px.png");
 
-
-            Window window = new Window("Lost In Space", 800, 700);
+            Window window = new Window("Lost In Space", 800, 700); // name width height
 
             // Create new Game object
             Game game = new Game(window);
@@ -27,7 +27,6 @@ namespace PlanetProtector
 
                 // Draw everything
                 game.DrawGame();
-
             }
 
             // Free memory

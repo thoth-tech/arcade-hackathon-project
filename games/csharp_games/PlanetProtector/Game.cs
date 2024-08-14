@@ -117,12 +117,16 @@ namespace PlanetProtector
         // Spawn asteroids
         private void _SpawnAsteroids()
         {
-            if (_asteroidTimer.Ticks > 1000)
+            /* 
+                want to adjust this so it spawns more randomly. 
+                e.g. after 1s it's possible to spawn again, but the likelihood gets increased until it's certain at about 5s
+             */
+            if (_asteroidTimer.Ticks > 1000 || _asteroids.Count == 0) // spawn an asteroid every 10 seconds or if there are no asteroids   
             {
                 _asteroidTimer.Reset();
-                int newAsteroidX = SplashKit.Rnd(_gameWindow.Width);
-                newAsteroidX = 0;
-                _asteroids.Add(new Asteroid(newAsteroidX, -100));
+                // not sure why but _gameWindow.Width is 800, which should be the entire width of the screen but is only half
+                int newAsteroidX = SplashKit.Rnd(_gameWindow.Width * 2);
+                _asteroids.Add(new Asteroid(newAsteroidX,-10));
             }
         }
 
