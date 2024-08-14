@@ -45,14 +45,22 @@ game_data new_game()
 
     // Set up timer
     game.game_timer = create_timer("game_timer");
+    
+    game.state = MENU;
 
     reset_timer(game.game_timer); // Ensures timer isn't using old data
+    
+    return game;
+}
+
+// start the game after the menu has been handled
+void start_game(game_data &game) {
     start_timer(game.game_timer);
 
-    game.game_over = false;
-    game.player.score = 0;
+    game.state = PLAY;
 
-    return game;
+    game.player.score = 0;
+    game.game_over = false;
 }
 
 void draw_game(game_data &game)
@@ -115,6 +123,8 @@ void check_collisions(game_data &game) // this also updates the score when a pla
 
 void update_game(game_data &game)
 {
+    if (game.state != PLAY) return; // game needs to have been started to be able to be updated
+    
     double elapsed_time = timer_ticks(game.game_timer) / 1000;
     update_player(game.player, elapsed_time);
 

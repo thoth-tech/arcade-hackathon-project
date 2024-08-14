@@ -7,6 +7,11 @@
 #include <vector>
 #define LEVEL_TIME 12000.0
 
+enum game_state {
+    MENU,
+    PLAY
+};
+
 /**
  * The game data keeps track of all of the information related to the game.
  *
@@ -19,6 +24,7 @@ struct game_data
     vector<planet_data> planets;
     timer               game_timer;
     bool                game_over;
+    game_state          state;
 };
 
 /**
@@ -32,6 +38,13 @@ void setup_level(game_data &game, int width, int height, int num_planets);
  * @returns     The new game data
  */
 game_data new_game();
+
+/**
+ * Switch the state from in the menu to playing the game
+ * 
+ * @param game The game data
+ */
+void start_game(game_data &game);
 
 /**
  * Draws the planets and player to the screen.

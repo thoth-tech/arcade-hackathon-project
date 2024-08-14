@@ -1,0 +1,8 @@
+BITMAP, Company2, companylogo1.png
+BITMAP, Company1, companylogo2.png
+FONT, DefaultFont, DefaultFont.ttf
+BITMAP, TeamLogo, teamlogo.png
+BITMAP, Button, button.png
+BITMAP, MenuBg, menubackground.png
+BITMAP, Title, title.png
+SOUND, Select, Select.wav
