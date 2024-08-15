@@ -1,5 +1,6 @@
 ﻿using SplashKitSDK;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PlanetProtector
 {
@@ -14,7 +15,6 @@ namespace PlanetProtector
         private List<Asteroid> _asteroids;
         private Timer _gameTimer;
         private bool _gameOver;
-        private int _score;
         private Timer _asteroidTimer;
 
         // Constructor
@@ -27,7 +27,6 @@ namespace PlanetProtector
             _gameTimer = new Timer("GameTimer");
             _asteroidTimer = new Timer("AsteroidTimer");
             _gameOver = false;
-            _score = 0;
 
             _SetupLevel(3000, 3000);
 
@@ -64,46 +63,42 @@ namespace PlanetProtector
         }
 
         // Draw the Heads Up Display
-        private void _DrawHud(Asteroid closestAsteroid, double timePercent)
+        private void _DrawHud(double currentTime)
         {
-            int part_width = 300; // How much the bar is filled in (300 is max)
 
-            SplashKit.FillRectangle(Color.Gray, 0, 0, 800, 50, SplashKit.OptionToScreen());
+            SplashKit.FillRectangle(SplashKit.RGBAColor(0, 0, 0, 0), 0, 0, 800, 50);
 
-            float distance = _player.DistanceToAsteroid(closestAsteroid);
-
-            // Draw score, location and distance to top left of the screen
-            _gameWindow.DrawText($"SCORE: {_score}", Color.White, 0, 0, SplashKit.OptionToScreen());
-            _gameWindow.DrawText("LOCATION: (" + ((int)_player.Sprite.CenterPoint.X).ToString() + ", " + ((int)_player.Sprite.CenterPoint.Y).ToString() + ")", Color.White, 0, 10, SplashKit.OptionToScreen());
-            _gameWindow.DrawText($"DISTANCE: {distance}", Color.White, 0, 20, SplashKit.OptionToScreen());
-
-            // Draw bar
-            _gameWindow.DrawBitmap(SplashKit.BitmapNamed("empty"), 300, 0, SplashKit.OptionToScreen());
-            _gameWindow.DrawBitmap(SplashKit.BitmapNamed("full"), 300, 0, SplashKit.OptionPartBmp(0, 0, part_width * timePercent, SplashKit.BitmapHeight("full"), SplashKit.OptionToScreen()));
-
-            // Draw compass
-            Vector2D direction;
-            if (closestAsteroid != null)
+            // Calculate and draw score
+            double score = ((double)_player.Score + currentTime); // calculate
+            string scoreString = score.ToString(); // convert to string
+            // if there is more than one decimal place, remove any after the first
+            if (scoreString.IndexOf('.') != -1)
             {
-                direction = SplashKit.VectorMultiply(SplashKit.UnitVector(SplashKit.VectorFromTo(_player.Sprite, closestAsteroid.Sprite)), 15);
-            }
-            else
-            {
-                direction = new Vector2D(); // if there are no asteroids, don't draw anything
+                scoreString = scoreString.Substring(0, scoreString.IndexOf('.') + 2);
             }
 
-            // draws compas to closest asteroid
-            _gameWindow.DrawCircle(Color.White, 750, 20, 15, SplashKit.OptionToScreen());
-            _gameWindow.DrawLine(Color.White, 750, 20, 750 + direction.Y, 20 + direction.Y, SplashKit.OptionToScreen());
-        }
+            int[] scorePosition = [_gameWindow.Width/2-70, 8];
+            _gameWindow.DrawText($"SCORE: {scoreString}", Color.White, "VT323", 30, scorePosition[0], scorePosition[1]);
 
-        private void _DrawNewHud(double currentTime)
-        {
-            SplashKit.FillRectangle(Color.Gray, 0, 0, 800, 50, SplashKit.OptionToScreen());
-
-            // Draw score, location and distance to top left of the screen
-            _gameWindow.DrawText($"SCORE: {_score}", Color.White, 0, 0, SplashKit.OptionToScreen());
-            _gameWindow.DrawText("LOCATION: (" + ((int)_player.Sprite.CenterPoint.X).ToString() + ", " + ((int)_player.Sprite.CenterPoint.Y).ToString() + ")", Color.White, 0, 10, SplashKit.OptionToScreen());
+            // draw health
+            Bitmap fullHeart = SplashKit.BitmapNamed("heart_full");
+            Bitmap emptyHeart = SplashKit.BitmapNamed("heart_empty");
+            int middle = _gameWindow.Width/2-25;
+            int space = 60;
+            int[] healthX = [middle - space*2, middle - space, middle, middle + space, middle + space*2];
+            int healthY = 50;
+            bool[] health = _player.Health;
+            for (int i = 0; i < 5; i++)
+            {
+                if (health[i])
+                {
+                    _gameWindow.DrawBitmap(fullHeart, healthX[i], healthY);
+                }
+                else
+                {
+                    _gameWindow.DrawBitmap(emptyHeart, healthX[i], healthY);
+                }
+            }
         }
 
         // Check for player collision with asteroid
@@ -119,7 +114,6 @@ namespace PlanetProtector
                         && !asteroid.HitPlayer
                     )
                     {
-                        _score += 1000;
                         asteroid.HitsPlayer();
                         // player.DeductHealth(10); // method to be added to player class
 
@@ -127,6 +121,7 @@ namespace PlanetProtector
                     }
 
                     // check asteroid-laser collisions
+                    // need to call _player.DestroyAsteroid within here to increase score
                 }
             }
         }
@@ -192,7 +187,7 @@ namespace PlanetProtector
             // current game time in X.x seconds
             double currentTime = _gameTimer.Ticks / 1000.0;
 
-            _DrawNewHud(currentTime);
+            _DrawHud(currentTime);
 
             if (_gameOver)
             {

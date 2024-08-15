@@ -21,6 +21,8 @@ namespace PlanetProtector
         private Sprite _playerSprite;
         private ShipKind _kind;
         private List<Bullet> _bullets;
+        private int _score;
+        private bool[] _health;
 
         // Constructor
         public Player(Window gameWindow)
@@ -39,6 +41,8 @@ namespace PlanetProtector
             _playerSprite.HideLayer(2);
             _playerSprite.Rotation = 270;
             _bullets = new List<Bullet>();
+
+            _health = [true, true, true, false, false]; // set to all true for build, falses are for testing
         }
 
         // Read-only property to return the player sprite
@@ -47,6 +51,22 @@ namespace PlanetProtector
             get
             {
                 return _playerSprite;
+            }
+        }
+
+        public int Score
+        {
+            get
+            {
+                return _score;
+            }
+        }
+
+        public bool[] Health
+        {
+            get
+            {
+                return _health;
             }
         }
 
@@ -125,6 +145,11 @@ namespace PlanetProtector
 
             // Returns distance between two points
             return SplashKit.PointPointDistance(_playerSprite.CenterPoint, asteroid.Sprite.CenterPoint);
+        }
+
+        public void DestroyAsteroid()
+        {
+            _score += 10;
         }
 
         // Return the closest asteroid

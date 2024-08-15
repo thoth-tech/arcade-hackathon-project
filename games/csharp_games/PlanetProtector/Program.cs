@@ -9,7 +9,10 @@ namespace PlanetProtector
             // Load the game images, sounds, etc.
             SplashKit.LoadResourceBundle("game_bundle", "lost_in_space.txt");
             SplashKit.LoadBitmap("bullet", "bullet.png");
-            SplashKit.LoadBitmap("asteroid", "asteroid_100px.png");
+            SplashKit.LoadBitmap("asteroid", "asteroid_100px.png");    
+            SplashKit.LoadBitmap("heart_full", "heart_full_50px.png");
+            SplashKit.LoadBitmap("heart_empty", "heart_empty_50px.png");
+            SplashKit.LoadFont("VT323", "VT323-Regular.ttf");
 
             Window window = new Window("Lost In Space", 800, 700); // name width height
 
