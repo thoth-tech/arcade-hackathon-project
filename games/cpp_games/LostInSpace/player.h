@@ -55,6 +55,13 @@ player_data new_player();
 void draw_player(const player_data &player_to_draw);
 
 /**
+ * Initializes the player to start moving and face upwards.
+ *
+ * @param player    The player to initialize
+ */
+void initialize_player(player_data &player);
+
+/**
  * Actions a step update of the player - moving them and adjusting the camera.
  *
  * @param player_to_update      The player being updated

@@ -121,6 +121,17 @@ void player_switch_to_ship(player_data &player, ship_kind target)
     }
 }
 
+void initialize_player(player_data &player) 
+{
+    // Set initial velocity to move forward
+    float initial_dx = PLAYER_SPEED; // Adjust PLAYER_SPEED as needed
+    sprite_set_dx(player.player_sprite, initial_dx);
+    
+    // Facing upwards
+    sprite_set_rotation(player.player_sprite, -90);
+
+}
+
 void handle_input(player_data &player)
 {
     // Allow the player to switch ships

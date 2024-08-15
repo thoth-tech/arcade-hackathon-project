@@ -71,6 +71,7 @@ void start_game(game_data &game)
 
     game.player.score = 0;
     game.game_over = false;
+    initialize_player(game.player);
 }
 
 int planets_left(vector<planet_data> planets)
