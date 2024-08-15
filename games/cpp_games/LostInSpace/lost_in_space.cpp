@@ -1,8 +1,15 @@
 #include "splashkit.h"
 #include "lost_in_space.h"
 
+#define STARTING_PLANETS 3
+#define WORMHOLE_MAX_SIZE 1.2
+#define DEBUG 1 // 1 for yes, prints num of planets, 0 for no, does not.
+
 void setup_level(game_data &game, int width, int height, int num_planets)
 {
+    if (DEBUG == 1)
+        write_line(num_planets);
+
     if (!game.game_over)
     {
         // Delete old planets (otherwise discovered planets from last level would remain)
@@ -11,6 +18,7 @@ void setup_level(game_data &game, int width, int height, int num_planets)
             free_sprite(game.planets[i].planet_sprite);
         }
         game.planets.clear();
+        game.wormhole_active = false;
 
         planet_data planet;
 
@@ -41,20 +49,22 @@ game_data new_game()
     game.player = new_player();
 
     // Create level and planets and center player
-    setup_level(game, 3000, 3000, 10);
+    setup_level(game, 3000, 3000, STARTING_PLANETS); // added a variable for debugging purposes
 
     // Set up timer
     game.game_timer = create_timer("game_timer");
-    
+
     game.state = MENU;
+    game.wormhole_active = false;
 
     reset_timer(game.game_timer); // Ensures timer isn't using old data
-    
+
     return game;
 }
 
 // start the game after the menu has been handled
-void start_game(game_data &game) {
+void start_game(game_data &game)
+{
     start_timer(game.game_timer);
 
     game.state = PLAY;
@@ -63,14 +73,50 @@ void start_game(game_data &game) {
     game.game_over = false;
 }
 
+int planets_left(vector<planet_data> planets)
+{
+    int sum = 0;
+    for (int i = 0; i < planets.size(); i++)
+    {
+        if (!planets[i].visited)
+        {
+            sum++;
+        }
+    }
+
+    return sum;
+}
+
 void draw_game(game_data &game)
 {
     // Redraw everything
     clear_screen(COLOR_BLACK);
 
-    // Draw planets first, so player is in front
     for (int i = 0; i < game.planets.size(); i++)
     {
+        if (game.planets[i].visited == false && planets_left(game.planets) == 1)
+        {
+            if (!game.wormhole_active)
+            {
+                point_2d position = sprite_position(game.planets[i].planet_sprite);
+
+                game.planets[i].planet_sprite = create_sprite(bitmap_named("wormhole")); // change sprite to wormhole
+
+                sprite_set_position(game.planets[i].planet_sprite, position); // make sure new sprite spawns same position
+                sprite_set_scale(game.planets[i].planet_sprite, 0.1); // start it off small and slowly increase
+                
+                game.wormhole_active = true;
+            }
+            else
+            {
+                if (sprite_scale(game.planets[i].planet_sprite) < WORMHOLE_MAX_SIZE)
+                {
+                    sprite_set_scale(game.planets[i].planet_sprite, sprite_scale(game.planets[i].planet_sprite) + 0.00333);
+                    // 60 frames a second, going up 0.2 frames per second = 0.2 / 60 = 0.00333
+                }
+            }
+        }
+
         draw_planet(game.planets[i]);
     }
 
@@ -100,9 +146,6 @@ void draw_game(game_data &game)
     {
         draw_text("GAME OVER!", COLOR_WHITE, 370, 350, option_to_screen());
     }
-
-    // Refresh screen
-    refresh_screen(60);
 }
 
 void check_collisions(game_data &game) // this also updates the score when a planet is
@@ -123,8 +166,9 @@ void check_collisions(game_data &game) // this also updates the score when a pla
 
 void update_game(game_data &game)
 {
-    if (game.state != PLAY) return; // game needs to have been started to be able to be updated
-    
+    if (game.state != PLAY)
+        return; // game needs to have been started to be able to be updated
+
     double elapsed_time = timer_ticks(game.game_timer) / 1000;
     update_player(game.player, elapsed_time);
 

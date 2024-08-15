@@ -56,10 +56,6 @@ int main()
                 start_game(game);
                 screen = nullptr; // should trigger the destructor (smart ptr), which will trigger the state destructor
             }
-
-            refresh_screen(60); // is having 2 refresh screens a bad idea?
-                                // i cant imagine it's a good idea, so suggest changes otherwise
-                                // but i also havent found any problems with it
         }
         else if (game.state == PLAY) // if play, work as normal
         {
@@ -71,10 +67,13 @@ int main()
             // draw everything
             draw_game(game);
         }
+
+        refresh_screen(60);
     }
 
     free_resource_bundle("game_bundle");
-    free_resource_bundle("menu_bundle");
+    // free_resource_bundle("menu_bundle");
+    // do not uncomment the above line, everything will immediately go to hell
     free_all_timers();
 
     return 0;

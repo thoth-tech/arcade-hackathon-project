@@ -21,3 +21,5 @@ BITMAP,box,box.png
 BITMAP,empty,empty.png
 BITMAP,full,full.png
 ANIM,coins,coin_animation.txt
+// Our additions
+BITMAP,wormhole,Wormhole.png

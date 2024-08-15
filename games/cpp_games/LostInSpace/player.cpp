@@ -5,7 +5,6 @@
 #include <sstream>
 #include <iomanip>
 
-
 /**
  * The ship bitmap function converts a ship kind into a
  * bitmap that can be used.
@@ -97,13 +96,12 @@ void update_player(player_data &player_to_update, double elapsed_time)
     {
         move_camera_by(sprite_center.x - right_edge, 0);
     }
-    
+
     // Increase base speed over time
     float dx = sprite_dx(player_to_update.player_sprite);
     float speed_increase = elapsed_time * 0.0001;
     player_to_update.base_speed += speed_increase;
     sprite_set_dx(player_to_update.player_sprite, dx += speed_increase);
-
 }
 
 /**
@@ -147,14 +145,14 @@ void handle_input(player_data &player)
     // Increase speed with up/down keys - typed to give step increases
     if (key_typed(UP_KEY))
         sprite_set_dx(player.player_sprite, dx + PLAYER_SPEED);
-    // Decrease speed with up/down keys - typed to give step decreaseds until reaching default speed 
+    // Decrease speed with up/down keys - typed to give step decreaseds until reaching default speed
     if (key_typed(DOWN_KEY))
     {
         // Increase speed with up/down keys - typed to give step increases
         if (dx - PLAYER_SPEED >= player.base_speed)
-        sprite_set_dx(player.player_sprite, dx - PLAYER_SPEED);
+            sprite_set_dx(player.player_sprite, dx - PLAYER_SPEED);
         else
-        sprite_set_dx(player.player_sprite, player.base_speed);
+            sprite_set_dx(player.player_sprite, player.base_speed);
     }
 }
 
@@ -167,7 +165,8 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
     float distance = distance_to_planet(player, planet);
 
     // Helper function to format floating-point numbers to 1 decimal place and return as string
-    auto format_float = [](float value) -> std::string {
+    auto format_float = [](float value) -> std::string
+    {
         std::ostringstream out;
         out << std::fixed << std::setprecision(1) << value;
         return out.str();
@@ -182,30 +181,26 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
 
     draw_text("DISTANCE: " + to_string(distance_to_planet(player, planet)),
               COLOR_WHITE, 0, 20, option_to_screen());
-    
+
     draw_text("BASE SPEED: " + to_string(player.base_speed),
               COLOR_WHITE, 0, 30, option_to_screen());
-    
+
     if (sprite_dx(player.player_sprite) - player.base_speed > 1.4)
         draw_text("SPEED + " + format_float(sprite_dx(player.player_sprite) - player.base_speed),
-                COLOR_RED, 0, 40, option_to_screen());
+                  COLOR_RED, 0, 40, option_to_screen());
 
     // Draw bar
-    load_bitmap("orange_bar","orange_bar.png ");
+    load_bitmap("orange_bar", "orange_bar.png");
     draw_bitmap("empty", 300, 0, option_to_screen());
-    if(time_percent <=0.3)
+    if (time_percent <= 0.3)
     {
-        draw_bitmap("orange_bar", 300, 0, option_part_bmp(0, 0, part_width * time_percent , bitmap_height("orange_bar"), option_to_screen()));
-
+        draw_bitmap("orange_bar", 300, 0, option_part_bmp(0, 0, part_width * time_percent, bitmap_height("orange_bar"), option_to_screen()));
     }
 
     else
     {
         draw_bitmap("full", 300, 0, option_part_bmp(0, 0, part_width * time_percent, bitmap_height("full"), option_to_screen()));
-
     }
-    
-    
 
     vector_2d direction;
     float rotation_angle;
@@ -218,25 +213,26 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
     load_bitmap("view", "Compass2.png");
 
     // draws compas to closest planet
-    //draw_circle(COLOR_WHITE, 750, 20, 15, option_to_screen());
-    draw_bitmap("compass", 720-23.5, 40-25.5, option_to_screen());
+    // draw_circle(COLOR_WHITE, 750, 20, 15, option_to_screen());
+    draw_bitmap("compass", 720 - 23.5, 40 - 25.5, option_to_screen());
     // Direction of the spaceship
-    draw_bitmap("view", 720-23.5, 40-25.5, option_rotate_bmp(rotation_angle, option_to_screen()));
-    //draw_line(COLOR_WHITE, 720, 40, 720 + direction.x, 40 + direction.y, option_to_screen());
+    draw_bitmap("view", 720 - 23.5, 40 - 25.5, option_rotate_bmp(rotation_angle, option_to_screen()));
+    // draw_line(COLOR_WHITE, 720, 40, 720 + direction.x, 40 + direction.y, option_to_screen());
 
     // Draw triangle to represent direction
     // Calculate the points for the triangle
     point_2d tip = {720 + direction.x, 40 + direction.y};
     vector_2d perpendicular = {-direction.y, direction.x}; // Perpendicular vector to the direction
-    perpendicular = unit_vector(perpendicular); // Normalize the perpendicular vector
+    perpendicular = unit_vector(perpendicular);            // Normalize the perpendicular vector
 
+    // Adjust the size of the triangle as needed
     double triangle_base = 7.0;
     double triangle_height = 7.0;
 
-    point_2d left = {tip.x + perpendicular.x * (triangle_base / 2) - direction.x * (triangle_height / 15), 
-                    tip.y + perpendicular.y * (triangle_base / 2) - direction.y * (triangle_height / 15)};
-    point_2d right = {tip.x - perpendicular.x * (triangle_base / 2) - direction.x * (triangle_height / 15), 
-                    tip.y - perpendicular.y * (triangle_base / 2) - direction.y * (triangle_height / 15)};
+    point_2d left = {tip.x + perpendicular.x * (triangle_base / 2) - direction.x * (triangle_height / 15),
+                     tip.y + perpendicular.y * (triangle_base / 2) - direction.y * (triangle_height / 15)};
+    point_2d right = {tip.x - perpendicular.x * (triangle_base / 2) - direction.x * (triangle_height / 15),
+                      tip.y - perpendicular.y * (triangle_base / 2) - direction.y * (triangle_height / 15)};
 
     // Draw triangle
     fill_triangle(COLOR_YELLOW, tip.x, tip.y, left.x, left.y, right.x, right.y, option_to_screen());

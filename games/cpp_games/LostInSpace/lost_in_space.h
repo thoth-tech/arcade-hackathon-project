@@ -7,7 +7,8 @@
 #include <vector>
 #define LEVEL_TIME 12000.0
 
-enum game_state {
+enum game_state
+{
     MENU,
     PLAY
 };
@@ -20,11 +21,12 @@ enum game_state {
  */
 struct game_data
 {
-    player_data         player;
+    player_data player;
     vector<planet_data> planets;
-    timer               game_timer;
-    bool                game_over;
-    game_state          state;
+    timer game_timer;
+    bool game_over;
+    game_state state;
+    bool wormhole_active;
 };
 
 /**
@@ -41,7 +43,7 @@ game_data new_game();
 
 /**
  * Switch the state from in the menu to playing the game
- * 
+ *
  * @param game The game data
  */
 void start_game(game_data &game);
@@ -60,5 +62,21 @@ void draw_game(game_data &game);
  * @param game      The player and planets being updated
  */
 void update_game(game_data &game);
+
+// /**
+//  * Returns the number of planets that the player has yet to visit.
+//  *
+//  * @param game
+//  * @return the number of planets remaining
+//  */
+// int planets_left(vector<planet_data> planets);
+
+// /**
+//  * Returns all unvisited planets
+//  *
+//  * @param planets An array of all of the planets
+//  * @returns An array of the unvisited planets
+//  */
+// vector<planet_data> return_unvisited_planets(vector<planet_data> planets);
 
 #endif
