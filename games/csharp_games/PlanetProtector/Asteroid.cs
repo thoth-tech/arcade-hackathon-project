@@ -15,20 +15,22 @@ namespace PlanetProtector
 
     public class Asteroid
     {
-        // Constants
-        const float ASTEROID_SPEED = 0.5f;
+        // CONSTANTS
+        const float ASTEROID_SPEED = 3.5f; // should be 0.5f for final game
         
         int ASTEROID_KIND_COUNT = 6; // number of entries in the AsteroidKind enum
 
         // need to somehow pass this into the drawing of the sprite
         // can use public void Bitmap.DrawBitmap(double x, double y, DrawingOptions opts);
         // but that is drawing the bitmap, not drawing the sprite
-        DrawingOptions asteroidOptions = SplashKit.OptionRotateBmp(10);
+        // DrawingOptions asteroidOptions = SplashKit.OptionRotateBmp(10);
 
-        // Fields
+        // FIELDS
         private Sprite _asteroidSprite;
+        private bool hitPlayer = false;
 
-        // Constructor
+
+        // CONSTRUCTOR
         public Asteroid(int x, int y)
         {
             // Randomly set a new asteroids sprite
@@ -43,10 +45,16 @@ namespace PlanetProtector
             _asteroidSprite.Dy = ASTEROID_SPEED;
         }
 
+        // ACCESSORS
         // Read-only property to return the asteroid sprite
         public Sprite Sprite
         {
             get { return _asteroidSprite; }
+        }
+
+        public bool HitPlayer
+        {
+            get { return hitPlayer; }
         }
 
         /**
@@ -65,6 +73,12 @@ namespace PlanetProtector
         public void Update()
         {
             _asteroidSprite.Update();
+        }
+
+        // Asteroid has hit player
+        public void HitsPlayer()
+        {
+            hitPlayer = true;
         }
 
         /**

@@ -97,6 +97,15 @@ namespace PlanetProtector
             _gameWindow.DrawLine(Color.White, 750, 20, 750 + direction.Y, 20 + direction.Y, SplashKit.OptionToScreen());
         }
 
+        private void _DrawNewHud(double currentTime)
+        {
+            SplashKit.FillRectangle(Color.Gray, 0, 0, 800, 50, SplashKit.OptionToScreen());
+
+            // Draw score, location and distance to top left of the screen
+            _gameWindow.DrawText($"SCORE: {_score}", Color.White, 0, 0, SplashKit.OptionToScreen());
+            _gameWindow.DrawText("LOCATION: (" + ((int)_player.Sprite.CenterPoint.X).ToString() + ", " + ((int)_player.Sprite.CenterPoint.Y).ToString() + ")", Color.White, 0, 10, SplashKit.OptionToScreen());
+        }
+
         // Check for player collision with asteroid
         private void _CheckCollisions() // this also updates the score when a asteroid is
         {
@@ -104,12 +113,20 @@ namespace PlanetProtector
             {
                 foreach (Asteroid asteroid in _asteroids)
                 {
-                    if (SplashKit.SpriteCollision(_player.Sprite, asteroid.Sprite))
+                    // check player-asteroid collisions
+                    if (
+                        SplashKit.SpriteCollision(_player.Sprite, asteroid.Sprite)
+                        && !asteroid.HitPlayer
+                    )
                     {
                         _score += 1000;
-                        _gameTimer.Reset();
+                        asteroid.HitsPlayer();
+                        // player.DeductHealth(10); // method to be added to player class
+
                         // return;
                     }
+
+                    // check asteroid-laser collisions
                 }
             }
         }
@@ -127,6 +144,19 @@ namespace PlanetProtector
                 // not sure why but _gameWindow.Width is 800, which should be the entire width of the screen but is only half
                 int newAsteroidX = SplashKit.Rnd(_gameWindow.Width * 2);
                 _asteroids.Add(new Asteroid(newAsteroidX,-10));
+            }
+        }
+
+        // Delete asteroids
+        private void _DeleteAsteroids()
+        {
+            foreach (Asteroid asteroid in _asteroids)
+            {
+                if (asteroid.Sprite.Y > _gameWindow.Height)
+                {
+                    _asteroids.Remove(asteroid);
+                    break;
+                }
             }
         }
 
@@ -159,19 +189,10 @@ namespace PlanetProtector
             // Draw player
             _player.Draw();
 
-            double timePercent = (LEVEL_TIME - _gameTimer.Ticks) / LEVEL_TIME;
-            if (timePercent < 0)
-            {
-                timePercent = 0; // Ensures doesn't go into the negatives
-            }
+            // current game time in X.x seconds
+            double currentTime = _gameTimer.Ticks / 1000.0;
 
-            Asteroid closestAsteroid = null;
-            if(_asteroids.Count > 0) // if there are asteroids, get the closest one
-            {
-                closestAsteroid = _player.ClosestAsteroid(_asteroids);
-            }
-
-            _DrawHud(closestAsteroid, timePercent);
+            _DrawNewHud(currentTime);
 
             if (_gameOver)
             {
@@ -196,9 +217,11 @@ namespace PlanetProtector
 
             _CheckCollisions();
 
+            _DeleteAsteroids();
+
             if (_gameTimer.Ticks > LEVEL_TIME)
             {
-                _gameOver = true;
+                // _gameOver = true;  // for now, never game over
                 _gameTimer.Stop();
             }
         }

@@ -71,15 +71,26 @@ namespace PlanetProtector
             float dx = _playerSprite.X;
 
             // Allow for movement on the x axis with border restrictions
-            if (SplashKit.KeyDown(KeyCode.LeftKey) && _playerSprite.X > -10)
-                _playerSprite.X = dx - PLAYER_SPEED;
-            if (SplashKit.KeyDown(KeyCode.RightKey) && _playerSprite.X < 740)
-                _playerSprite.X = dx + PLAYER_SPEED;
+            if (
+                (SplashKit.KeyDown(KeyCode.LeftKey) || SplashKit.KeyDown(KeyCode.AKey))
+                && _playerSprite.X > -10
+            )
+            {
+                _playerSprite.X = dx - PLAYER_SPEED; // move left
+            }
+
+            if (
+                (SplashKit.KeyDown(KeyCode.RightKey) || SplashKit.KeyDown(KeyCode.DKey))
+                && _playerSprite.X < 740
+            )
+            {
+                _playerSprite.X = dx + PLAYER_SPEED; // move right
+            }
+            
             if (SplashKit.KeyTyped(KeyCode.SpaceKey))
             {
                 Shoot();
             }
-
 
         }
 
