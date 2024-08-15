@@ -10,7 +10,8 @@
 enum game_state
 {
     MENU,
-    PLAY
+    PLAY,
+    END
 };
 
 /**

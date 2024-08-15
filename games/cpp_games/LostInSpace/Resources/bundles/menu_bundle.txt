@@ -6,3 +6,4 @@ BITMAP, Button, button.png
 BITMAP, MenuBg, menubackground.png
 BITMAP, Title, title.png
 SOUND, Select, Select.wav
+BITMAP, GameOver, GameOver.png

@@ -104,8 +104,8 @@ void draw_game(game_data &game)
                 game.planets[i].planet_sprite = create_sprite(bitmap_named("wormhole")); // change sprite to wormhole
 
                 sprite_set_position(game.planets[i].planet_sprite, position); // make sure new sprite spawns same position
-                sprite_set_scale(game.planets[i].planet_sprite, 0.3); // start it off small and slowly increase
-                
+                sprite_set_scale(game.planets[i].planet_sprite, 0.3);         // start it off small and slowly increase
+
                 game.wormhole_active = true;
             }
             else
@@ -141,11 +141,6 @@ void draw_game(game_data &game)
     else
     {
         draw_hud(game.player, game.planets[0], time_percent);
-    }
-
-    if (game.game_over)
-    {
-        draw_text("GAME OVER!", COLOR_WHITE, 370, 350, option_to_screen());
     }
 }
 
@@ -185,6 +180,7 @@ void update_game(game_data &game)
     if (timer_ticks(game.game_timer) > LEVEL_TIME)
     {
         game.game_over = true;
+        game.state = END;
         stop_timer(game.game_timer);
     }
 

@@ -32,6 +32,8 @@ int main()
 
     game_data game = new_game();
 
+    bool menu_do_once = false;
+
     // holds the screen data
     shared_ptr<Screen> screen; // new "smart" c++ pointer that removes itself when no longer in use - avoid memory leaks
 
@@ -44,7 +46,7 @@ int main()
         // Handle input to adjust player movement
         process_events();
 
-        // if the game is in a menu state, we continue in the menu state until the menu 
+        // if the game is in a menu state, we continue in the menu state until the menu
         // tells us that it no longer needs to exist
         // we can remove references to it and the smart pointer will clear it up
         if (game.state == MENU)
@@ -66,6 +68,36 @@ int main()
 
             // draw everything
             draw_game(game);
+        }
+        else if (game.state == END)
+        { // really awful to have the code here but its 4:33 in the morning and i just want this done
+            // but was much easier to paste the code, considering i dont want buttons or anything like that
+            // could be its own function but it is now 5:09 in the morning and at the moment, the only thing that
+            // matters is sleep.
+            set_camera_x(0);
+            set_camera_y(0);
+            clear_screen(COLOR_BLACK);
+            draw_bitmap("MenuBg", 0, 0, option_to_screen());
+
+            if (!music_playing())
+            {
+                play_music("MenuMusic.mp3");
+                set_music_volume(0.2f);
+            }
+
+            // set up for the text to draw the players final score.
+            point_2d pt = screen_center();
+            string score_text = "Your final score: " + to_string(game.player.score);
+            font screen_font = font_named("DefaultFont");
+            int font_size = 30;
+            color font_color = COLOR_WHITE_SMOKE;
+
+            // qanita's gameover bitmap
+            bitmap title = bitmap_named("GameOver");
+            drawing_options scale = option_scale_bmp(1, 1);
+            draw_bitmap(title, pt.x - bitmap_width(title) / 2, 100, scale);
+
+            draw_text(score_text, font_color, screen_font, font_size, pt.x - text_width(score_text, screen_font, font_size) / 2, (pt.y - text_height(score_text, screen_font, font_size) / 2) + 150, option_to_screen());
         }
 
         refresh_screen(60);
