@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iomanip>
 
+
 /**
  * The ship bitmap function converts a ship kind into a
  * bitmap that can be used.
@@ -63,9 +64,6 @@ void update_player(player_data &player_to_update, double elapsed_time)
 {
     // Apply movement based on rotation and velocity in the sprite
     update_sprite(player_to_update.player_sprite);
-
-    // Adjust base speed based on elapsed time
-   // player_to_update.base_speed = 1.0 + (elapsed_time / 60.0);
 
     // Test edge of screen boundaries to adjust the camera
     double left_edge = camera_x() + SCREEN_BORDER;
@@ -158,12 +156,6 @@ void handle_input(player_data &player)
         else
         sprite_set_dx(player.player_sprite, player.base_speed);
     }
-/*
-    if (key_typed(DOWN_KEY))
-        sprite_set_dx(player.player_sprite, dx - PLAYER_SPEED);
-    if (key_typed(UP_KEY))
-        sprite_set_dx(player.player_sprite, dx + PLAYER_SPEED);
-*/
 }
 
 void draw_hud(const player_data &player, const planet_data &planet, double time_percent)
@@ -238,7 +230,6 @@ void draw_hud(const player_data &player, const planet_data &planet, double time_
     vector_2d perpendicular = {-direction.y, direction.x}; // Perpendicular vector to the direction
     perpendicular = unit_vector(perpendicular); // Normalize the perpendicular vector
 
-    // Adjust the size of the triangle as needed
     double triangle_base = 7.0;
     double triangle_height = 7.0;
 

@@ -98,7 +98,7 @@ private:
     bool run_once = false;
     vector<shared_ptr<Button>> menu_buttons;
     int offset = -80;
-    int num_buttons = 3;
+    int num_buttons = 2;
     int selection = 0;
 
 public:
@@ -214,9 +214,6 @@ string get_button_text(int id)
         text = "PLAY";
         break;
     case 2:
-        text = "EXTRAS";
-        break;
-    case 3:
         text = "EXIT";
         break;
     default:
@@ -336,22 +333,17 @@ void TeamIntroScreen::update()
     font screen_font = font_named("DefaultFont");
     int font_size = 30;
     color font_color = COLOR_WHITE;
-    string text = "Morgaine Barter";
-    string text2 = "Daniel Agbay, Lily Lan, Robert Osborne";
-    string text3 = "Jiahao Zheng, Roy Chen";
-    string text4 = "And";
-    string text5 = "Lachlan Morgan";
-    string text6 = "Present";
+    string text = "Nathan Love";
+    string text2 = "Natasha Jiang";
+    string text3 = "Qanita Nadhirazka";
+
 
     draw_bitmap(logo, pt.x - bitmap_width(logo) / 2, pt.y - bitmap_height(logo) / 2 - 150, option_to_screen());
 
     draw_text(text, font_color, screen_font, font_size, pt.x - text_width(text, screen_font, font_size) / 2, (pt.y - text_height(text, screen_font, font_size) / 2) + 150, option_to_screen());
     draw_text(text2, font_color, screen_font, font_size, pt.x - text_width(text2, screen_font, font_size) / 2, (pt.y - text_height(text2, screen_font, font_size) / 2) + 150 + text_height(text2, screen_font, font_size) * 1, option_to_screen());
     draw_text(text3, font_color, screen_font, font_size, pt.x - text_width(text3, screen_font, font_size) / 2, (pt.y - text_height(text3, screen_font, font_size) / 2) + 150 + text_height(text3, screen_font, font_size) * 2, option_to_screen());
-    draw_text(text4, font_color, screen_font, font_size, pt.x - text_width(text4, screen_font, font_size) / 2, (pt.y - text_height(text4, screen_font, font_size) / 2) + 150 + text_height(text4, screen_font, font_size) * 3, option_to_screen());
-    draw_text(text5, font_color, screen_font, font_size, pt.x - text_width(text5, screen_font, font_size) / 2, (pt.y - text_height(text5, screen_font, font_size) / 2) + 150 + text_height(text5, screen_font, font_size) * 4, option_to_screen());
-    draw_text(text6, font_color, screen_font, font_size, pt.x - text_width(text6, screen_font, font_size) / 2, (pt.y - text_height(text6, screen_font, font_size) / 2) + 150 + text_height(text6, screen_font, font_size) * 6, option_to_screen());
-
+   
     bool time_up = screen_timer(screen_time, "ScreenTimer");
 
     alpha = screen_effect(alpha, screen_time, "ScreenTimer", 2);

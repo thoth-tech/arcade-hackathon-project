@@ -17,7 +17,7 @@ class Button
         int font_size = 25;
         bool selected = false;
         color font_color = COLOR_BLACK;
-        color selected_color = COLOR_RED;
+        color selected_color = COLOR_YELLOW;
     
     public:
         Button(bitmap button_bmp, int offset, int id, string text)
