@@ -97,7 +97,7 @@ class MenuScreen : public ScreenState
 private:
     bool run_once = false;
     vector<shared_ptr<Button>> menu_buttons;
-    int offset = -80;
+    int offset = -10;
     int num_buttons = 2;
     int selection = 0;
 
@@ -116,7 +116,8 @@ public:
 
     ~MenuComplete() {};
 
-    void update() override {
+    void update() override
+    {
         this->screen->menu_completed = true;
     };
 };
@@ -248,8 +249,21 @@ void MenuScreen::update()
     }
 
     point_2d pt = screen_center();
+    rectangle rc = screen_rectangle();
+
     clear_screen(COLOR_BLACK);
     draw_bitmap("MenuBg", 0, 0, option_to_screen());
+
+    string audio_text = "Music by Charlie Axl Tebbutt";
+    font screen_font = font_named("DefaultFont");
+    int font_size = 10;
+
+    // draw the audio text small and down the bottom, as he didn't contribute much lol
+    draw_text(audio_text, COLOR_WHITE, screen_font, font_size,
+              rc.width - text_width(audio_text, screen_font, font_size) - 15, // buffer of 20, position to the right side of the screen
+              (pt.y - text_height(audio_text, screen_font, font_size) / 2) + 300 + text_height(audio_text, screen_font, font_size) * 2,
+              // dont ask me how the above line works, i bsed it until i got a good position ahahah
+              option_to_screen());
 
     bitmap title = bitmap_named("Title");
     drawing_options scale = option_scale_bmp(2, 2);
@@ -272,15 +286,6 @@ void MenuScreen::update()
         }
         break;
         case 1:
-        {
-            play_sound_effect("Select");
-            // need to add functionality to swap screen and then the other functionalities
-            // might want to just remove this for now and come back to it later?
-
-            // this->screen->change_state(new ExtraScreen, "Extras");
-        }
-        break;
-        case 2:
         {
             exit(0);
         }
@@ -337,13 +342,12 @@ void TeamIntroScreen::update()
     string text2 = "Natasha Jiang";
     string text3 = "Qanita Nadhirazka";
 
-
     draw_bitmap(logo, pt.x - bitmap_width(logo) / 2, pt.y - bitmap_height(logo) / 2 - 150, option_to_screen());
 
     draw_text(text, font_color, screen_font, font_size, pt.x - text_width(text, screen_font, font_size) / 2, (pt.y - text_height(text, screen_font, font_size) / 2) + 150, option_to_screen());
     draw_text(text2, font_color, screen_font, font_size, pt.x - text_width(text2, screen_font, font_size) / 2, (pt.y - text_height(text2, screen_font, font_size) / 2) + 150 + text_height(text2, screen_font, font_size) * 1, option_to_screen());
     draw_text(text3, font_color, screen_font, font_size, pt.x - text_width(text3, screen_font, font_size) / 2, (pt.y - text_height(text3, screen_font, font_size) / 2) + 150 + text_height(text3, screen_font, font_size) * 2, option_to_screen());
-   
+
     bool time_up = screen_timer(screen_time, "ScreenTimer");
 
     alpha = screen_effect(alpha, screen_time, "ScreenTimer", 2);

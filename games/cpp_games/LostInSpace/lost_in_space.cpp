@@ -1,9 +1,9 @@
 #include "splashkit.h"
 #include "lost_in_space.h"
 
-#define STARTING_PLANETS 3
-#define WORMHOLE_MAX_SIZE 1.2
-#define DEBUG 1 // 1 for yes, prints num of planets, 0 for no, does not.
+#define STARTING_PLANETS 10
+#define WORMHOLE_MAX_SIZE 1.3
+#define DEBUG 0 // 1 for yes, prints num of planets, 0 for no, does not.
 
 void setup_level(game_data &game, int width, int height, int num_planets)
 {
@@ -103,7 +103,7 @@ void draw_game(game_data &game)
                 game.planets[i].planet_sprite = create_sprite(bitmap_named("wormhole")); // change sprite to wormhole
 
                 sprite_set_position(game.planets[i].planet_sprite, position); // make sure new sprite spawns same position
-                sprite_set_scale(game.planets[i].planet_sprite, 0.1); // start it off small and slowly increase
+                sprite_set_scale(game.planets[i].planet_sprite, 0.3); // start it off small and slowly increase
                 
                 game.wormhole_active = true;
             }
@@ -111,8 +111,8 @@ void draw_game(game_data &game)
             {
                 if (sprite_scale(game.planets[i].planet_sprite) < WORMHOLE_MAX_SIZE)
                 {
-                    sprite_set_scale(game.planets[i].planet_sprite, sprite_scale(game.planets[i].planet_sprite) + 0.00333);
-                    // 60 frames a second, going up 0.2 frames per second = 0.2 / 60 = 0.00333
+                    sprite_set_scale(game.planets[i].planet_sprite, sprite_scale(game.planets[i].planet_sprite) + 0.0016667);
+                    // 60 frames a second, going up 0.1 frames per second = 0.1 / 60 = 0.0016667
                 }
             }
         }
