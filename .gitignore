@@ -33,3 +33,5 @@
 
 # splashkit log
 games/csharp_games/PlanetProtector/logs/splashkit.log
+
+.DS_Store
