@@ -45,7 +45,7 @@ namespace PlanetProtector
 
             _health = new bool[] { true, true, true, true, true }; // start off with 5 hearts
 
-            _meteorsDestroyed = 0;
+            _asteroidsDestroyed = 0;
             _score = 0;
         }
 
@@ -74,11 +74,11 @@ namespace PlanetProtector
             }
         }
 
-        public int MeteorsDestroyed
+        public int AsteroidsDestroyed
         {
             get
             {
-                return _meteorsDestroyed;
+                return _asteroidsDestroyed;
             }
         }
 
