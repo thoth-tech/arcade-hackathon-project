@@ -20,7 +20,7 @@ namespace PlanetProtector
             _frontY = 0;
             _rearY = 0;
 
-            _speed =0.8;
+            _speed = 0.8;
         }
 
         // Update the background

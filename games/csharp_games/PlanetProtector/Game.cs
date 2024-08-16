@@ -81,7 +81,7 @@ namespace PlanetProtector
                 scoreString = scoreString.Substring(0, scoreString.IndexOf('.') + 2);
             }
 
-            int[] scorePosition = [_gameWindow.Width / 2 - 80, 8];
+            int[] scorePosition = [_gameWindow.Width / 2 - 90, 8];
             _gameWindow.DrawText($"SCORE: {scoreString}", Color.White, "VT323", 40, scorePosition[0], scorePosition[1]);
 
             // draw health
