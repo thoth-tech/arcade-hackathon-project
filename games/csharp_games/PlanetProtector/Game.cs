@@ -72,12 +72,12 @@ namespace PlanetProtector
             // Calculate and draw score
             string scoreString = _player.Score.ToString(); // convert to string
             // if there is more than one decimal place, remove any after the first
-            if (scoreString.IndexOf('.') != -1)
+            /* if (scoreString.IndexOf('.') != -1)
             {
                 scoreString = scoreString.Substring(0, scoreString.IndexOf('.') + 2);
-            }
+            } */
 
-            int[] scorePosition = [_gameWindow.Width / 2 - 90, 8];
+            int[] scorePosition = [_gameWindow.Width / 2 - 80, 8];
             _gameWindow.DrawText($"SCORE: {scoreString}", Color.White, "VT323", 40, scorePosition[0], scorePosition[1]);
 
             // draw health
@@ -179,7 +179,7 @@ namespace PlanetProtector
 
         private void _UpdateScore()
         {
-            double newScore = _gameTimer.Ticks / 1000 + (_player.Score * 10);
+            double newScore = _gameTimer.Ticks / 1000 + (_player.AsteroidsDestroyed * 10);
             _player.SetScore(newScore);
         }
 

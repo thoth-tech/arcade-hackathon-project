@@ -52,34 +52,22 @@ namespace PlanetProtector
         // Read-only property to return the player sprite
         public Sprite Sprite
         {
-            get
-            {
-                return _playerSprite;
-            }
+            get { return _playerSprite; }
         }
 
         public double Score
         {
-            get
-            {
-                return _score;
-            }
+            get { return _score; }
         }
 
         public bool[] Health
         {
-            get
-            {
-                return _health;
-            }
+            get { return _health; }
         }
 
         public int AsteroidsDestroyed
         {
-            get
-            {
-                return _asteroidsDestroyed;
-            }
+            get { return _asteroidsDestroyed; }
         }
 
         public List<Bullet> Bullets
