@@ -64,7 +64,7 @@ namespace PlanetProtector
         }
 
         // Draw the Heads Up Display
-        private void _DrawHud(double currentTime)
+        private void _DrawHud()
         {
 
             SplashKit.FillRectangle(SplashKit.RGBAColor(0, 0, 0, 0), 0, 0, 800, 50);
@@ -219,9 +219,7 @@ namespace PlanetProtector
                 // Draw player
                 _player.Draw();
 
-                // current game time in X.x seconds
-                double currentTime = _gameTimer.Ticks / 1000.0;
-                _DrawHud(currentTime);
+                _DrawHud();
             }
 
             else
