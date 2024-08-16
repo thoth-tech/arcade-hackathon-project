@@ -21,7 +21,8 @@ namespace PlanetProtector
         private Sprite _playerSprite;
         private ShipKind _kind;
         private List<Bullet> _bullets;
-        private int _score;
+        private double _score;
+        private int _asteroidsDestroyed;
         private bool[] _health;
 
         // Constructor
@@ -43,6 +44,9 @@ namespace PlanetProtector
             _bullets = new List<Bullet>();
 
             _health = new bool[] { true, true, true, true, true }; // start off with 5 hearts
+
+            _meteorsDestroyed = 0;
+            _score = 0;
         }
 
         // Read-only property to return the player sprite
@@ -54,7 +58,7 @@ namespace PlanetProtector
             }
         }
 
-        public int Score
+        public double Score
         {
             get
             {
@@ -67,6 +71,14 @@ namespace PlanetProtector
             get
             {
                 return _health;
+            }
+        }
+
+        public int MeteorsDestroyed
+        {
+            get
+            {
+                return _meteorsDestroyed;
             }
         }
 
@@ -120,6 +132,11 @@ namespace PlanetProtector
 
         }
 
+        public void SetScore(double newScore)
+        {
+            _score = newScore;
+        }
+
         // Draw the player sprite
         public void Draw()
         {
@@ -155,7 +172,7 @@ namespace PlanetProtector
 
         public void DestroyAsteroid()
         {
-            _score += 10;
+            _asteroidsDestroyed++;
         }
 
         // Return the closest asteroid

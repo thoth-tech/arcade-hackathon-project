@@ -7,9 +7,6 @@ namespace PlanetProtector
 {
     public class Game
     {
-        // Constants
-        const double LEVEL_TIME = 12000.0;
-
         // Fields
         private Window _gameWindow;
         private Player _player;
@@ -73,8 +70,7 @@ namespace PlanetProtector
             SplashKit.FillRectangle(SplashKit.RGBAColor(0, 0, 0, 0), 0, 0, 800, 50);
 
             // Calculate and draw score
-            double score = ((double)_player.Score + currentTime); // calculate
-            string scoreString = score.ToString(); // convert to string
+            string scoreString = _player.Score.ToString(); // convert to string
             // if there is more than one decimal place, remove any after the first
             if (scoreString.IndexOf('.') != -1)
             {
@@ -181,6 +177,12 @@ namespace PlanetProtector
             }
         }
 
+        private void _UpdateScore()
+        {
+            double newScore = _gameTimer.Ticks / 1000 + (_player.Score * 10);
+            _player.SetScore(newScore);
+        }
+
         /**
         * -----------------------
         * Public Methods
@@ -249,13 +251,9 @@ namespace PlanetProtector
 
                 _DeleteAsteroids();
 
-                _background.Update();
+                _UpdateScore();
 
-                if (_gameTimer.Ticks > LEVEL_TIME)
-                {
-                    // _gameOver = true;  // for now, never game over
-                    _gameTimer.Stop();
-                }
+                _background.Update();
             }
 
         }
