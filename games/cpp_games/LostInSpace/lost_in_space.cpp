@@ -88,10 +88,34 @@ int planets_left(vector<planet_data> planets)
     return sum;
 }
 
+
+void star_background(player_data &player_to_update)
+{
+   // Load the background bitmap
+    load_bitmap("stars background", "star_background.png");
+    bitmap background_bitmap = bitmap_named("stars background");
+
+    // Get the background image dimensions
+    int background_width = bitmap_width(background_bitmap);
+    int background_height = bitmap_height(background_bitmap);
+
+    // Draw the background bitmap at regular intervals
+    for (int x = static_cast<int>(camera_x()) - background_width; x <= static_cast<int>(camera_x()) + background_width; x += background_width) 
+    {
+        for (int y = static_cast<int>(camera_y()) - background_height; y <= static_cast<int>(camera_y()) + background_height; y += background_height) 
+        {
+            draw_bitmap(background_bitmap, x, y);
+        }
+    }
+}
+
+
+
 void draw_game(game_data &game)
 {
     // Redraw everything
     clear_screen(COLOR_BLACK);
+    star_background(game.player);
 
     for (int i = 0; i < game.planets.size(); i++)
     {

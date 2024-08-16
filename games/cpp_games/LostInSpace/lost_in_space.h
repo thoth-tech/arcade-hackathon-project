@@ -3,9 +3,13 @@
 
 #include "splashkit.h"
 #include "player.h"
+#include "constants.h"
 
 #include <vector>
 #define LEVEL_TIME 12000.0
+
+extern const int SCREEN_WIDTH;
+extern const int SCREEN_HEIGHT;
 
 enum game_state
 {
