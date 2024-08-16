@@ -3,7 +3,6 @@
 
 #include "splashkit.h"
 #include "player.h"
-#include "constants.h"
 
 #include <vector>
 #define LEVEL_TIME 12000.0
