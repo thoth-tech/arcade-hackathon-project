@@ -130,8 +130,7 @@ namespace PlanetProtector
 
                         // return;
                     }
-
-                    // check asteroid-laser collisions
+                    
                     // need to call _player.DestroyAsteroid within here to increase score
                     // Check asteroid-bullet collisions
                     foreach (Bullet bullet in _player.Bullets.ToList())

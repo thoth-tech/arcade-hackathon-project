@@ -181,8 +181,8 @@ namespace PlanetProtector
 
         public void ReduceHealth()
         {
-            // Find the first true in the health array and set it to false
-            for (int i = 0; i < _health.Length; i++)
+            // Find the last true in the health array and set it to false
+            for (int i = _health.Length - 1; i >= 0; i--)
             {
                 if (_health[i])
                 {
