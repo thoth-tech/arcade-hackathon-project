@@ -17,6 +17,7 @@ namespace PlanetProtector
         private Timer _gameTimer;
         private bool _gameOver;
         private Timer _asteroidTimer;
+        private Background _background;
 
         // Constructor
         public Game(Window gameWindow)
@@ -36,6 +37,8 @@ namespace PlanetProtector
 
             _asteroidTimer.Reset();
             _asteroidTimer.Start();
+
+            _background = new Background();
         }
 
         /**
@@ -78,8 +81,8 @@ namespace PlanetProtector
                 scoreString = scoreString.Substring(0, scoreString.IndexOf('.') + 2);
             }
 
-            int[] scorePosition = [_gameWindow.Width / 2 - 70, 8];
-            _gameWindow.DrawText($"SCORE: {scoreString}", Color.White, "VT323", 30, scorePosition[0], scorePosition[1]);
+            int[] scorePosition = [_gameWindow.Width / 2 - 80, 8];
+            _gameWindow.DrawText($"SCORE: {scoreString}", Color.White, "VT323", 40, scorePosition[0], scorePosition[1]);
 
             // draw health
             Bitmap fullHeart = SplashKit.BitmapNamed("heart_full");
@@ -87,7 +90,7 @@ namespace PlanetProtector
             int middle = _gameWindow.Width / 2 - 25;
             int space = 60;
             int[] healthX = [middle - space * 2, middle - space, middle, middle + space, middle + space * 2];
-            int healthY = 50;
+            int healthY = 60;
             bool[] health = _player.Health;
             for (int i = 0; i < 5; i++)
             {
@@ -200,6 +203,8 @@ namespace PlanetProtector
                 // Redraw everything
                 _gameWindow.Clear(Color.Black);
 
+                _background.Draw();
+
                 // Debug square in centre of map
                 // SplashKit.FillRectangle(Color.White, 400, 400, 10, 10);
 
@@ -243,6 +248,8 @@ namespace PlanetProtector
                 _CheckCollisions();
 
                 _DeleteAsteroids();
+
+                _background.Update();
 
                 if (_gameTimer.Ticks > LEVEL_TIME)
                 {

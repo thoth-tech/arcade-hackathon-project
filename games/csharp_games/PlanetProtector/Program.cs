@@ -13,6 +13,8 @@ namespace PlanetProtector
             SplashKit.LoadBitmap("heart_full", "heart_full_50px.png");
             SplashKit.LoadBitmap("heart_empty", "heart_empty_50px.png");
             SplashKit.LoadFont("VT323", "VT323-Regular.ttf");
+            SplashKit.LoadBitmap("background_front", "background-front.png");
+            SplashKit.LoadBitmap("background_rear",  "background-rear.png");
 
             Window window = new Window("Lost In Space", 800, 700); // name width height
 
