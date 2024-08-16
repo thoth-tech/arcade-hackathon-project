@@ -42,7 +42,7 @@ namespace PlanetProtector
             _playerSprite.Rotation = 270;
             _bullets = new List<Bullet>();
 
-            _health = [true, true, true, false, false]; // set to all true for build, falses are for testing
+            _health = new bool[] { true, true, true, true, true }; // start off with 5 hearts
         }
 
         // Read-only property to return the player sprite
@@ -69,6 +69,12 @@ namespace PlanetProtector
                 return _health;
             }
         }
+
+        public List<Bullet> Bullets
+        {
+            get { return _bullets; }
+        }
+
 
         /**
         * -----------------------
@@ -106,7 +112,7 @@ namespace PlanetProtector
             {
                 _playerSprite.X = dx + PLAYER_SPEED; // move right
             }
-            
+
             if (SplashKit.KeyTyped(KeyCode.SpaceKey))
             {
                 Shoot();
@@ -173,6 +179,36 @@ namespace PlanetProtector
             return result;
         }
 
+        public void ReduceHealth()
+        {
+            // Find the first true in the health array and set it to false
+            for (int i = 0; i < _health.Length; i++)
+            {
+                if (_health[i])
+                {
+                    _health[i] = false;
+                    break;
+                }
+            }
+        }
+
+        public bool IsAlive()
+        {
+            // loop through each element in  _health array
+            for (int i = 0; i < _health.Length; i++)
+            {
+                // if true, the player is still alive
+                if (_health[i])
+                {
+                    return true;
+                }
+            }
+            // if not, the player is not alive
+            return false;
+        }
+
+
+
         /**
         * -----------------------
         * Private Methods
@@ -212,7 +248,9 @@ namespace PlanetProtector
         private void Shoot()
         {
             // Create a new bullet and add it to the list
-            Bullet bullet = new Bullet(_playerSprite.X + _playerSprite.Width / 2, _playerSprite.Y);
+            double bulletWidth = SplashKit.BitmapNamed("bullet").Width;
+            double bulletStartX = _playerSprite.X + (_playerSprite.Width / 2) - (bulletWidth / 2);
+            Bullet bullet = new Bullet(bulletStartX, _playerSprite.Y);
             _bullets.Add(bullet);
         }
     }

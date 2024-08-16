@@ -18,7 +18,7 @@ namespace PlanetProtector
         // CONSTANTS
         const float ASTEROID_SPEED = 3.5f; // should be 0.5f for final game
         
-        int ASTEROID_KIND_COUNT = 6; // number of entries in the AsteroidKind enum
+        // int ASTEROID_KIND_COUNT = 6; // number of entries in the AsteroidKind enum
 
         // need to somehow pass this into the drawing of the sprite
         // can use public void Bitmap.DrawBitmap(double x, double y, DrawingOptions opts);

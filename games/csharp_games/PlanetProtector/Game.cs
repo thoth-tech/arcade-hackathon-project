@@ -1,5 +1,6 @@
 ﻿using SplashKitSDK;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
 namespace PlanetProtector
@@ -58,7 +59,7 @@ namespace PlanetProtector
                 // Position in the centre of the initial screen
                 // _player.Sprite.X = (width - _player.Sprite.Width) / 2; // Translate to world coords
                 _player.Sprite.X = (_gameWindow.Width - _player.Sprite.Width) / 2;
-                _player.Sprite.Y = (_gameWindow.Height  - _player.Sprite.Height) - 100;
+                _player.Sprite.Y = (_gameWindow.Height - _player.Sprite.Height) - 100;
             }
         }
 
@@ -77,15 +78,15 @@ namespace PlanetProtector
                 scoreString = scoreString.Substring(0, scoreString.IndexOf('.') + 2);
             }
 
-            int[] scorePosition = [_gameWindow.Width/2-70, 8];
+            int[] scorePosition = [_gameWindow.Width / 2 - 70, 8];
             _gameWindow.DrawText($"SCORE: {scoreString}", Color.White, "VT323", 30, scorePosition[0], scorePosition[1]);
 
             // draw health
             Bitmap fullHeart = SplashKit.BitmapNamed("heart_full");
             Bitmap emptyHeart = SplashKit.BitmapNamed("heart_empty");
-            int middle = _gameWindow.Width/2-25;
+            int middle = _gameWindow.Width / 2 - 25;
             int space = 60;
-            int[] healthX = [middle - space*2, middle - space, middle, middle + space, middle + space*2];
+            int[] healthX = [middle - space * 2, middle - space, middle, middle + space, middle + space * 2];
             int healthY = 50;
             bool[] health = _player.Health;
             for (int i = 0; i < 5; i++)
@@ -106,7 +107,7 @@ namespace PlanetProtector
         {
             if (!_gameOver)
             {
-                foreach (Asteroid asteroid in _asteroids)
+                foreach (Asteroid asteroid in _asteroids.ToList())
                 {
                     // check player-asteroid collisions
                     if (
@@ -115,6 +116,16 @@ namespace PlanetProtector
                     )
                     {
                         asteroid.HitsPlayer();
+                        _player.ReduceHealth();
+                        if (!_player.IsAlive())
+                        {
+                            _gameOver = true;
+                        }
+                        else
+                        {
+                            SplashKit.FreeSprite(asteroid.Sprite);
+                            _asteroids.Remove(asteroid);
+                        }
                         // player.DeductHealth(10); // method to be added to player class
 
                         // return;
@@ -122,6 +133,19 @@ namespace PlanetProtector
 
                     // check asteroid-laser collisions
                     // need to call _player.DestroyAsteroid within here to increase score
+                    // Check asteroid-bullet collisions
+                    foreach (Bullet bullet in _player.Bullets.ToList())
+                    {
+                        if (SplashKit.SpriteCollision(bullet.Sprite, asteroid.Sprite))
+                        {
+                            _player.DestroyAsteroid();  // increase the score
+                            _asteroids.Remove(asteroid); // remove the asteroid
+                            _player.Bullets.Remove(bullet); // remove the bullet
+                            SplashKit.FreeSprite(asteroid.Sprite); // free asteroid sprite memory
+                            SplashKit.FreeSprite(bullet.Sprite); // free bullet sprite memory
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -138,19 +162,19 @@ namespace PlanetProtector
                 _asteroidTimer.Reset();
                 // not sure why but _gameWindow.Width is 800, which should be the entire width of the screen but is only half
                 int newAsteroidX = SplashKit.Rnd(_gameWindow.Width * 2);
-                _asteroids.Add(new Asteroid(newAsteroidX,-10));
+                _asteroids.Add(new Asteroid(newAsteroidX, -10));
             }
         }
 
         // Delete asteroids
         private void _DeleteAsteroids()
         {
-            foreach (Asteroid asteroid in _asteroids)
+            foreach (Asteroid asteroid in _asteroids.ToList())
             {
                 if (asteroid.Sprite.Y > _gameWindow.Height)
                 {
                     _asteroids.Remove(asteroid);
-                    break;
+                    SplashKit.FreeSprite(asteroid.Sprite);
                 }
             }
         }
@@ -163,33 +187,38 @@ namespace PlanetProtector
 
         public void HandleInput()
         {
-            _player.HandleInput();
+            if (!_gameOver)
+            {
+                _player.HandleInput();
+            }
         }
 
         // Draw the game
         public void DrawGame()
         {
-            // Redraw everything
-            _gameWindow.Clear(Color.Black);
-
-            // Debug square in centre of map
-            SplashKit.FillRectangle(Color.White, 400, 400, 10, 10);
-
-            // Draw asteroids first, so player is in front
-            foreach (Asteroid asteroid in _asteroids)
+            if (!_gameOver)
             {
-                asteroid.Draw();
+                // Redraw everything
+                _gameWindow.Clear(Color.Black);
+
+                // Debug square in centre of map
+                SplashKit.FillRectangle(Color.White, 400, 400, 10, 10);
+
+                // Draw asteroids first, so player is in front
+                foreach (Asteroid asteroid in _asteroids)
+                {
+                    asteroid.Draw();
+                }
+
+                // Draw player
+                _player.Draw();
+
+                // current game time in X.x seconds
+                double currentTime = _gameTimer.Ticks / 1000.0;
+                _DrawHud(currentTime);
             }
 
-            // Draw player
-            _player.Draw();
-
-            // current game time in X.x seconds
-            double currentTime = _gameTimer.Ticks / 1000.0;
-
-            _DrawHud(currentTime);
-
-            if (_gameOver)
+            else
             {
                 _gameWindow.DrawText("GAME OVER!", Color.White, 370, 350, SplashKit.OptionToScreen());
             }
@@ -201,24 +230,28 @@ namespace PlanetProtector
         // Update the game data
         public void UpdateGame()
         {
-            _player.Update(_gameWindow);
-
-            foreach (Asteroid asteroid in _asteroids)
+            if (!_gameOver)
             {
-                asteroid.Update();
+                _player.Update(_gameWindow);
+
+                foreach (Asteroid asteroid in _asteroids)
+                {
+                    asteroid.Update();
+                }
+
+                _SpawnAsteroids();
+
+                _CheckCollisions();
+
+                _DeleteAsteroids();
+
+                if (_gameTimer.Ticks > LEVEL_TIME)
+                {
+                    // _gameOver = true;  // for now, never game over
+                    _gameTimer.Stop();
+                }
             }
 
-            _SpawnAsteroids();
-
-            _CheckCollisions();
-
-            _DeleteAsteroids();
-
-            if (_gameTimer.Ticks > LEVEL_TIME)
-            {
-                // _gameOver = true;  // for now, never game over
-                _gameTimer.Stop();
-            }
         }
     }
 }
