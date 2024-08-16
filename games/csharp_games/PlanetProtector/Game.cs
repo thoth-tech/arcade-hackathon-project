@@ -130,7 +130,7 @@ namespace PlanetProtector
 
                         // return;
                     }
-                    
+
                     // need to call _player.DestroyAsteroid within here to increase score
                     // Check asteroid-bullet collisions
                     foreach (Bullet bullet in _player.Bullets.ToList())
@@ -201,7 +201,7 @@ namespace PlanetProtector
                 _gameWindow.Clear(Color.Black);
 
                 // Debug square in centre of map
-                SplashKit.FillRectangle(Color.White, 400, 400, 10, 10);
+                // SplashKit.FillRectangle(Color.White, 400, 400, 10, 10);
 
                 // Draw asteroids first, so player is in front
                 foreach (Asteroid asteroid in _asteroids)

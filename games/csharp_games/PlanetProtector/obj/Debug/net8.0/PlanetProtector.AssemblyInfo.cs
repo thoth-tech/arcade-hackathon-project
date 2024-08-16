@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlanetProtector")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63dcf5de0412ee13be208d5dfda425b0fe5dcc36")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e2f41f33af53a7a4cc361743bbde39f4e12c056")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlanetProtector")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlanetProtector")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
