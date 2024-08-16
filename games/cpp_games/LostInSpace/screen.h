@@ -304,7 +304,7 @@ void CompanyIntroScreen::update()
     bitmap title = bitmap_named("Company1");
     bitmap title2 = bitmap_named("Company2");
     font screen_font = font_named("DefaultFont");
-    int font_size = 80;
+    int font_size = 40;
     color font_color = COLOR_WHITE;
     string text = "Thoth Tech presents";
 
