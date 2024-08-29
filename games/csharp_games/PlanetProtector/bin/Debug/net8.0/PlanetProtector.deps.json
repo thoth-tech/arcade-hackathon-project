@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PlanetProtector/1.0.0": {
+        "dependencies": {
+          "SplashKit": "1.1.6"
+        },
+        "runtime": {
+          "PlanetProtector.dll": {}
+        }
+      },
+      "SplashKit/1.1.6": {
+        "runtime": {
+          "lib/net8.0/SplashKitSDK.dll": {
+            "assemblyVersion": "1.1.6.0",
+            "fileVersion": "1.1.6.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PlanetProtector/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SplashKit/1.1.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5t9sdDusii1HuJbiK25h/PEaz25HiTNEnpmaRlawfXCvbeHKyWAxsfUfwtHNUOiC6nz7CKujYnRh8Oy69+zEGw==",
+      "path": "splashkit/1.1.6",
+      "hashPath": "splashkit.1.1.6.nupkg.sha512"
+    }
+  }
+}
