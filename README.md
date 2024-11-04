@@ -2,11 +2,12 @@
     <img width="150px" src="https://github.com/thoth-tech/.github/blob/main/images/splashkit.png"/>
 </p>
 
-![GitHub contributors](https://img.shields.io/github/contributors/thoth-tech/arcade-hackathon-project?label=Contributors&color=F5A623)
-![GitHub issues](https://img.shields.io/github/issues/thoth-tech/arcade-hackathon-project?label=Issues&color=F5A623)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/thoth-tech/arcade-hackathon-project?label=Pull%20Requests&color=F5A623)
-![Forks](https://img.shields.io/github/forks/thoth-tech/arcade-hackathon-project?label=Forks&color=F5A623)
-![Stars](https://img.shields.io/github/stars/thoth-tech/arcade-hackathon-project?label=Stars&color=F5A623)
+[![GitHub contributors](https://img.shields.io/github/contributors/thoth-tech/arcade-hackathon-project?label=Contributors&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/graphs/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/thoth-tech/arcade-hackathon-project?label=Issues&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/thoth-tech/arcade-hackathon-project?label=Pull%20Requests&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/pulls)
+[![Forks](https://img.shields.io/github/forks/thoth-tech/arcade-hackathon-project?label=Forks&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/network/members)
+[![Stars](https://img.shields.io/github/stars/thoth-tech/arcade-hackathon-project?label=Stars&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/stargazers)
+
 
 # Arcade Games Hackathon-in-a-Box
 
