@@ -1,3 +1,5 @@
+# Arcade Games Hackathon-in-a-Box
+
 <p align="left">
     <img width="150px" src="https://github.com/thoth-tech/.github/blob/main/images/splashkit.png"/>
 </p>
@@ -7,9 +9,6 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/thoth-tech/arcade-hackathon-project?label=Pull%20Requests&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/pulls)
 [![Forks](https://img.shields.io/github/forks/thoth-tech/arcade-hackathon-project?label=Forks&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/network/members)
 [![Stars](https://img.shields.io/github/stars/thoth-tech/arcade-hackathon-project?label=Stars&color=F5A623)](https://github.com/thoth-tech/arcade-hackathon-project/stargazers)
-
-
-# Arcade Games Hackathon-in-a-Box
 
 **Arcade Games Hackathon-in-a-Box** is a repository created for a hackathon event that allowed Deakin University students to enhance their skills in game development using SplashKit, Agile methodologies, and GitHub. This hackathon provided participants with a collaborative environment to develop arcade-style games and gain experience with industry-relevant tools and practices.
 
