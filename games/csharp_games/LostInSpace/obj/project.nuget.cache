@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "YRjUtmP6Yi0=",
+  "dgSpecHash": "dzn/LKEVpPY=",
   "success": true,
-  "projectFilePath": "/Users/omckeon/Desktop/OLIVIA/4-GitHubRepos/Thoth-Repos/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj",
+  "projectFilePath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj",
   "expectedPackageFiles": [
-    "/Users/omckeon/.nuget/packages/splashkit/1.1.6/splashkit.1.1.6.nupkg.sha512"
+    "/Users/cjhorn/.nuget/packages/splashkit/1.1.6/splashkit.1.1.6.nupkg.sha512"
   ],
   "logs": []
 }

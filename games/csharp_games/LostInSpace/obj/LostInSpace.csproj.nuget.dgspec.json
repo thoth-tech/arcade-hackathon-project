@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/omckeon/Desktop/OLIVIA/4-GitHubRepos/Thoth-Repos/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj": {}
+    "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj": {}
   },
   "projects": {
-    "/Users/omckeon/Desktop/OLIVIA/4-GitHubRepos/Thoth-Repos/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj": {
+    "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/omckeon/Desktop/OLIVIA/4-GitHubRepos/Thoth-Repos/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj",
+        "projectUniqueName": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj",
         "projectName": "LostInSpace",
-        "projectPath": "/Users/omckeon/Desktop/OLIVIA/4-GitHubRepos/Thoth-Repos/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj",
-        "packagesPath": "/Users/omckeon/.nuget/packages/",
-        "outputPath": "/Users/omckeon/Desktop/OLIVIA/4-GitHubRepos/Thoth-Repos/arcade-hackathon-project/games/csharp_games/LostInSpace/obj/",
+        "projectPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/LostInSpace/LostInSpace.csproj",
+        "packagesPath": "/Users/cjhorn/.nuget/packages/",
+        "outputPath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/LostInSpace/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/omckeon/.nuget/NuGet/NuGet.Config"
+          "/Users/cjhorn/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

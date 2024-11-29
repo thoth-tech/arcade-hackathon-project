@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "l5zGGm8how4=",
+  "success": true,
+  "projectFilePath": "/Users/cjhorn/code/arcade-hackathon/arcade-hackathon-project/games/csharp_games/PlanetProtector/PlanetProtector.csproj",
+  "expectedPackageFiles": [
+    "/Users/cjhorn/.nuget/packages/splashkit/1.1.6/splashkit.1.1.6.nupkg.sha512"
+  ],
+  "logs": []
+}
